@@ -4,3 +4,5 @@
 - [x] Enviar as fotos reais para os arquivos do site
 - [x] Reorganizar destaque, galeria e equipe com imagens reais
 - [x] Validar páginas em celular e computador
+
+- [ ] Incorporar informações oficiais do perfil do Instagram

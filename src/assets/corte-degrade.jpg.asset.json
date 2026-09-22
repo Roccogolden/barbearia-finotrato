@@ -2,10 +2,10 @@
   "version": 1,
   "asset_id": "c8335c70-af43-47fe-9053-f5d7a074bc3b",
   "project_id": "7db35d34-936b-40bd-aa67-0f73cd3f57fa",
-  "url": "/images/corte-degrade.jpg",
+  "url": "/images/corte-degrade.webp",
   "r2_key": "a/v1/7db35d34-936b-40bd-aa67-0f73cd3f57fa/c8335c70-af43-47fe-9053-f5d7a074bc3b/corte-degrade.jpg",
   "original_filename": "corte-degrade.jpg",
   "size": 37436,
-  "content_type": "image/jpeg",
+  "content_type": "image/webp",
   "created_at": "2026-09-22T17:02:31Z"
 }

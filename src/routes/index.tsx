@@ -1,10 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Quote, Star } from "lucide-react";
+import { ArrowRight, ArrowUp, Quote, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Marquee } from "@/components/marquee";
 import { Reveal } from "@/components/reveal";
 import { ServiceList } from "@/components/service-list";
 import { TeamGrid } from "@/components/team-grid";
 import { useParallax } from "@/hooks/use-parallax";
+import { useScrolled } from "@/hooks/use-scrolled";
+import { cn } from "@/lib/utils";
 import { brand, galleryBase, testimonials } from "@/lib/barbershop-data";
 
 export const Route = createFileRoute("/")({
@@ -23,6 +26,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const heroImageRef = useParallax<HTMLImageElement>(0.12, 50);
   const heroLogoRef = useParallax<HTMLImageElement>(-0.2, 40);
+  const showBackToTop = useScrolled(700);
   return <>
     <section className="relative min-h-[88svh] overflow-hidden bg-surface-deep pt-18 text-surface-deep-foreground">
       <img ref={heroImageRef} src={brand.heroImage} alt="Fachada iluminada da Fino Trato Barbearia" width={1004} height={525} className="absolute inset-0 h-full w-full scale-110 object-cover object-center will-change-transform" />
@@ -32,6 +36,8 @@ function Index() {
         <Reveal className="max-w-2xl"><p className="eyebrow">Barbearia contemporânea</p><h1 className="mt-5 font-display text-6xl leading-[0.9] font-semibold sm:text-7xl lg:text-8xl">Seu estilo.<br/><span className="text-primary">Nosso ofício.</span></h1><p className="mt-7 max-w-lg text-base leading-7 text-surface-deep-muted sm:text-lg">Técnica, cuidado e conversa boa. Um corte à altura de quem você é.</p><div className="mt-9 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/agendamento">Agendar horário <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-surface-deep-muted bg-transparent text-surface-deep-foreground hover:bg-surface-deep-foreground hover:text-surface-deep"><Link to="/servicos">Ver serviços</Link></Button></div></Reveal>
       </div>
     </section>
+    <Marquee items={["Fino Trato Barbearia", "Cortes com técnica", "Barba na navalha", "Ambiente climatizado"]} />
+    <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Voltar ao topo" className={cn("fixed bottom-6 right-6 z-40 grid size-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90", showBackToTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0")}><ArrowUp className="size-5" /></button>
     <section className="py-20 sm:py-28"><div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 md:grid-cols-2 md:items-center lg:px-10"><Reveal><p className="eyebrow">Experiência Fino Trato</p><h2 className="mt-4 font-display text-4xl leading-tight font-semibold sm:text-5xl">Cuidado profissional, do corte ao ambiente.</h2></Reveal><Reveal delay={120}><p className="text-base leading-8 text-muted-foreground">Cortes profissionais em um ambiente climatizado, com atendimento cuidadoso e cerveja gelada para você aproveitar cada momento.</p><div className="mt-8 grid grid-cols-3 gap-4 border-t border-border pt-7"><Stat value="01" label="cortes profissionais"/><Stat value="02" label="ambiente climatizado"/><Stat value="03" label="cerveja gelada"/></div></Reveal></div></section>
     <section className="bg-muted py-20 sm:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><Reveal><SectionTitle eyebrow="Serviços" title="O cuidado certo, sem atalhos." link="/servicos"/></Reveal><Reveal delay={120} className="mt-10"><ServiceList limit={4}/></Reveal></div></section>
     <section className="py-20 sm:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><Reveal><SectionTitle eyebrow="Nosso trabalho" title="Detalhes que fazem diferença." link="/galeria"/></Reveal><div className="mt-10 grid auto-rows-[260px] gap-4 md:grid-cols-3 md:auto-rows-[420px]">{galleryBase.map((item, index) => <Reveal key={item.label} delay={index * 100} className={index === 0 ? "overflow-hidden md:col-span-2" : "overflow-hidden"}><figure className="h-full"><img src={item.src} alt={item.alt} width={index === 1 ? 1920 : 1200} height={index === 1 ? 1200 : 900} loading="lazy" className="h-full w-full object-cover transition duration-700 hover:scale-[1.02]"/><figcaption className="sr-only">{item.label}</figcaption></figure></Reveal>)}</div></div></section>

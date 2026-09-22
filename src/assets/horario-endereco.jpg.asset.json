@@ -2,10 +2,10 @@
   "version": 1,
   "asset_id": "10732a0a-38ef-4014-95a9-5b17fee8d19e",
   "project_id": "7db35d34-936b-40bd-aa67-0f73cd3f57fa",
-  "url": "/images/horario-endereco.jpg",
+  "url": "/images/horario-endereco.webp",
   "r2_key": "a/v1/7db35d34-936b-40bd-aa67-0f73cd3f57fa/10732a0a-38ef-4014-95a9-5b17fee8d19e/horario-endereco.jpg",
   "original_filename": "horario-endereco.jpg",
   "size": 54782,
-  "content_type": "image/jpeg",
+  "content_type": "image/webp",
   "created_at": "2026-09-22T17:02:16Z"
 }

@@ -18,7 +18,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const scrolled = useScrolled(24);
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur-md transition-shadow duration-300", scrolled && "shadow-sm")}>
+    <header className={cn("fixed inset-x-0 top-0 z-50 border-b border-border bg-background/85 backdrop-blur-lg transition-shadow duration-300", scrolled && "shadow-sm")}>
       <div className={cn("mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 transition-[height] duration-300 sm:px-8 lg:px-10", scrolled ? "h-14" : "h-18")}>
         <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
           <img src={brand.logoImage} alt="" width={112} height={112} className={cn("shrink-0 rounded-full object-cover ring-1 ring-border transition-all duration-300", scrolled ? "size-10" : "size-13")} />

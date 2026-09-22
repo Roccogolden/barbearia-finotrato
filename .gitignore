@@ -24,6 +24,9 @@ package-lock.json
 # Vercel
 .vercel
 
+# Local reference material (design system drafts, saved pages) — not part of the site
+PASTA DE ESBOÇOS - DIVERSOS/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

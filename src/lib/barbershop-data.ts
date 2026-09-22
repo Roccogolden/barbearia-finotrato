@@ -1,8 +1,7 @@
-import heroImage from "@/assets/barbershop-hero.jpg";
-import beardImage from "@/assets/beard-service.jpg";
-import rafaelImage from "@/assets/barber-rafael.jpg";
-import mateusImage from "@/assets/barber-mateus.jpg";
-import andreImage from "@/assets/barber-andre.jpg";
+import heroAsset from "@/assets/interior-atendimento.jpg.asset.json";
+import socialCutAsset from "@/assets/corte-social.jpg.asset.json";
+import fadeAsset from "@/assets/degrade-baixo.jpg.asset.json";
+import beardCutAsset from "@/assets/corte-barba.jpg.asset.json";
 
 export const brand = {
   name: "Fino Trato Barbearia",
@@ -12,7 +11,7 @@ export const brand = {
   address: "R. Esperança, Qd. 27, Lote 03, Sala 02 — Vila Santa Rosa, Senador Canedo — GO, 75250-000",
   arrivalTime: "15 min",
   hours: "Seg–Sáb, 8h–20h · Domingo fechado",
-  heroImage,
+  heroImage: heroAsset.url,
 };
 
 export const openingHours = [
@@ -35,15 +34,15 @@ export const services = [
 ];
 
 export const barbers = [
-  { name: "Rafael Lima", role: "Fundador · Cortes clássicos", image: rafaelImage, bio: "Há 12 anos traduz personalidade em cortes precisos e atemporais." },
-  { name: "Mateus Rocha", role: "Barbeiro · Fades e textura", image: mateusImage, bio: "Especialista em degradês limpos, texturas e visuais contemporâneos." },
-  { name: "André Martins", role: "Barbeiro · Barbas", image: andreImage, bio: "Domina o ritual da navalha e o desenho de barba sob medida." },
+  { name: "Rafael Lima", role: "Fundador · Cortes clássicos", bio: "Há 12 anos traduz personalidade em cortes precisos e atemporais." },
+  { name: "Mateus Rocha", role: "Barbeiro · Fades e textura", bio: "Especialista em degradês limpos, texturas e visuais contemporâneos." },
+  { name: "André Martins", role: "Barbeiro · Barbas", bio: "Domina o ritual da navalha e o desenho de barba sob medida." },
 ];
 
 export const galleryBase = [
-  { src: beardImage, alt: "Barbeiro desenhando uma barba com navalha", label: "Barba desenhada" },
-  { src: heroImage, alt: "Corte masculino sendo finalizado na barbearia", label: "Clássico contemporâneo" },
-  { src: rafaelImage, alt: "Profissional da equipe Fino Trato Barbearia", label: "Precisão em cada detalhe" },
+  { src: fadeAsset.url, alt: "Cliente da Fino Trato com corte degradê baixo", label: "Degradê baixo" },
+  { src: socialCutAsset.url, alt: "Cliente da Fino Trato com corte social e barba alinhada", label: "Corte social" },
+  { src: beardCutAsset.url, alt: "Cliente da Fino Trato com cabelo e barba alinhados", label: "Corte + barba" },
 ];
 
 export const testimonials = [

@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgendamentoRouteImport } from './routes/agendamento'
+import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as EquipeRouteImport } from './routes/equipe'
+import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as ServicosRouteImport } from './routes/servicos'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +21,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgendamentoRoute = AgendamentoRouteImport.update({
+  id: '/agendamento',
+  path: '/agendamento',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EquipeRoute = EquipeRouteImport.update({
   id: '/equipe',
   path: '/equipe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GaleriaRoute = GaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicosRoute = ServicosRouteImport.update({
@@ -31,31 +49,51 @@ const ServicosRoute = ServicosRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agendamento': typeof AgendamentoRoute
+  '/contato': typeof ContatoRoute
   '/equipe': typeof EquipeRoute
+  '/galeria': typeof GaleriaRoute
   '/servicos': typeof ServicosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agendamento': typeof AgendamentoRoute
+  '/contato': typeof ContatoRoute
   '/equipe': typeof EquipeRoute
+  '/galeria': typeof GaleriaRoute
   '/servicos': typeof ServicosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agendamento': typeof AgendamentoRoute
+  '/contato': typeof ContatoRoute
   '/equipe': typeof EquipeRoute
+  '/galeria': typeof GaleriaRoute
   '/servicos': typeof ServicosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/equipe' | '/servicos'
+  fullPaths:
+    '/' | '/agendamento' | '/contato' | '/equipe' | '/galeria' | '/servicos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/equipe' | '/servicos'
-  id: '__root__' | '/' | '/equipe' | '/servicos'
+  to: '/' | '/agendamento' | '/contato' | '/equipe' | '/galeria' | '/servicos'
+  id:
+    | '__root__'
+    | '/'
+    | '/agendamento'
+    | '/contato'
+    | '/equipe'
+    | '/galeria'
+    | '/servicos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgendamentoRoute: typeof AgendamentoRoute
+  ContatoRoute: typeof ContatoRoute
   EquipeRoute: typeof EquipeRoute
+  GaleriaRoute: typeof GaleriaRoute
   ServicosRoute: typeof ServicosRoute
 }
 
@@ -68,11 +106,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agendamento': {
+      id: '/agendamento'
+      path: '/agendamento'
+      fullPath: '/agendamento'
+      preLoaderRoute: typeof AgendamentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/equipe': {
       id: '/equipe'
       path: '/equipe'
       fullPath: '/equipe'
       preLoaderRoute: typeof EquipeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/galeria': {
+      id: '/galeria'
+      path: '/galeria'
+      fullPath: '/galeria'
+      preLoaderRoute: typeof GaleriaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/servicos': {
@@ -87,7 +146,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgendamentoRoute: AgendamentoRoute,
+  ContatoRoute: ContatoRoute,
   EquipeRoute: EquipeRoute,
+  GaleriaRoute: GaleriaRoute,
   ServicosRoute: ServicosRoute,
 }
 export const routeTree = rootRouteImport

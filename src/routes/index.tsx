@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Quote, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ServiceList } from "@/components/service-list";
 import { TeamGrid } from "@/components/team-grid";

@@ -5,10 +5,10 @@ import mateusImage from "@/assets/barber-mateus.jpg";
 import andreImage from "@/assets/barber-andre.jpg";
 
 export const brand = {
-  name: "Valor do Corte",
+  name: "Fino Trato Barbearia",
   phone: "(62) 99464-1575",
   phoneHref: "tel:+5562994641575",
-  email: "contato@valordocorte.com.br",
+  email: "contato@finotrato.com.br",
   address: "R. Esperança, Qd. 27, Lote 03, Sala 02 — Vila Santa Rosa, Senador Canedo — GO, 75250-000",
   arrivalTime: "15 min",
   hours: "Seg–Sáb, 8h–20h · Domingo fechado",
@@ -43,7 +43,7 @@ export const barbers = [
 export const galleryBase = [
   { src: beardImage, alt: "Barbeiro desenhando uma barba com navalha", label: "Barba desenhada" },
   { src: heroImage, alt: "Corte masculino sendo finalizado na barbearia", label: "Clássico contemporâneo" },
-  { src: rafaelImage, alt: "Profissional da equipe Valor do Corte", label: "Precisão em cada detalhe" },
+  { src: rafaelImage, alt: "Profissional da equipe Fino Trato Barbearia", label: "Precisão em cada detalhe" },
 ];
 
 export const testimonials = [

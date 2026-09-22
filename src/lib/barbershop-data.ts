@@ -14,6 +14,8 @@ export const brand = {
   arrivalTime: "15 min",
   hours: "Seg–Sáb, 8h–20h · Domingo fechado",
   heroImage: heroAsset.url,
+  googleRating: "4,8",
+  googleReviewsCount: "62",
 };
 
 export const openingHours = [
@@ -48,7 +50,19 @@ export const galleryBase = [
 ];
 
 export const testimonials = [
-  { quote: "O atendimento é pontual, o ambiente é impecável e o corte fica exatamente como eu imagino.", name: "Bruno S.", detail: "Cliente há 3 anos" },
-  { quote: "Não é só cortar o cabelo. Eles entendem seu estilo e explicam como manter o resultado em casa.", name: "Caio M.", detail: "Avaliação demonstrativa" },
-  { quote: "Profissionais cuidadosos e uma experiência tranquila do começo ao fim. Virei cliente na primeira visita.", name: "Felipe R.", detail: "Avaliação demonstrativa" },
+  {
+    quote: "Excelente atendimento, com profissionais qualificados, ambiente climatizado, organizado com higiene. A melhor barbearia da região, com preço justo.",
+    name: "Adriano Pereira",
+    detail: "Google Review · 5 estrelas"
+  },
+  {
+    quote: "Profissionais de alto nível. Atendimento cordial e acolhedor. Alto astral nas resenhas dos clientes. Altamente recomendável.",
+    name: "Carlos de Brito Lacerda",
+    detail: "Google Review · 5 estrelas"
+  },
+  {
+    quote: "Barbearia excelente, ambiente agradável, climatizado, opções de bebidas enquanto espera sua vez, wi-fi, super indico.",
+    name: "Lucas Nery",
+    detail: "Google Review · 5 estrelas"
+  }
 ];

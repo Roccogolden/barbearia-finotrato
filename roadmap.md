@@ -6,3 +6,5 @@
 - [x] Validar páginas em celular e computador
 
 - [x] Incorporar informações oficiais do perfil do Instagram
+
+- [x] Substituir depoimentos demonstrativos por avaliações reais do Google

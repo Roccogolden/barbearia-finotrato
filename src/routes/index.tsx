@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return <>
     <section className="relative min-h-[88svh] overflow-hidden bg-surface-deep pt-18 text-surface-deep-foreground">
-      <img src={brand.heroImage} alt="Barbeiro finalizando um corte na Fino Trato Barbearia" width={1920} height={1200} className="absolute inset-0 h-full w-full object-cover object-[62%_center]" />
+      <img src={brand.heroImage} alt="Fachada iluminada da Fino Trato Barbearia" width={1004} height={525} className="absolute inset-0 h-full w-full object-cover object-center" />
       <div className="absolute inset-0 bg-gradient-to-r from-surface-deep via-surface-deep/75 to-transparent" />
       <div className="relative mx-auto flex min-h-[calc(88svh-4.5rem)] max-w-7xl items-center px-5 py-16 sm:px-8 lg:px-10">
         <div className="max-w-2xl"><p className="eyebrow">Barbearia contemporânea</p><h1 className="mt-5 font-display text-6xl leading-[0.9] font-semibold sm:text-7xl lg:text-8xl">Seu estilo.<br/><span className="text-primary">Nosso ofício.</span></h1><p className="mt-7 max-w-lg text-base leading-7 text-surface-deep-muted sm:text-lg">Técnica, cuidado e conversa boa. Um corte à altura de quem você é.</p><div className="mt-9 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/agendamento">Agendar horário <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-surface-deep-muted bg-transparent text-surface-deep-foreground hover:bg-surface-deep-foreground hover:text-surface-deep"><Link to="/servicos">Ver serviços</Link></Button></div></div>

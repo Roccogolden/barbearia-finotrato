@@ -2,6 +2,7 @@ import heroAsset from "@/assets/fachada-fino-trato-recente.png.asset.json";
 import socialCutAsset from "@/assets/corte-social.jpg.asset.json";
 import fadeAsset from "@/assets/degrade-baixo.jpg.asset.json";
 import beardCutAsset from "@/assets/corte-barba.jpg.asset.json";
+import logoAsset from "@/assets/identidade-fino-trato.jpg.asset.json";
 
 export const brand = {
   name: "Fino Trato Barbearia",
@@ -16,6 +17,7 @@ export const brand = {
   arrivalTime: "15 min",
   hours: "Seg–Sáb, 8h–20h · Domingo fechado",
   heroImage: heroAsset.url,
+  logoImage: logoAsset.url,
   googleRating: "4,8",
   googleReviewsCount: "62",
 };

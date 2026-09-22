@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Scissors, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { brand } from "@/lib/barbershop-data";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -18,7 +19,7 @@ export function SiteHeader() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur-md">
       <div className="mx-auto grid h-18 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 sm:px-8 lg:px-10">
         <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="grid size-9 shrink-0 place-items-center border border-primary text-primary"><Scissors className="size-4" /></span>
+          <img src={brand.logoImage} alt="" width={112} height={112} className="size-13 shrink-0 rounded-full object-cover ring-1 ring-border" />
           <span className="truncate font-display text-xl font-semibold uppercase tracking-[0.08em] text-foreground">Fino Trato Barbearia</span>
         </Link>
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">

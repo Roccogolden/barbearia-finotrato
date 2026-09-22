@@ -2,21 +2,37 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/page-hero";
-import { galleryBase } from "@/lib/barbershop-data";
-import cropImage from "@/assets/gallery-crop.jpg";
-import classicImage from "@/assets/gallery-classic.jpg";
-import beardImage from "@/assets/beard-service.jpg";
 import facadeAsset from "@/assets/fachada-real.webp.asset.json";
 import interiorAsset from "@/assets/interior-real.webp.asset.json";
+import serviceInteriorAsset from "@/assets/interior-atendimento.jpg.asset.json";
+import fadeAsset from "@/assets/degrade-baixo.jpg.asset.json";
+import fadePortraitAsset from "@/assets/corte-degrade.jpg.asset.json";
+import socialCutAsset from "@/assets/corte-social.jpg.asset.json";
+import beardCutAsset from "@/assets/corte-barba.jpg.asset.json";
+import identityAsset from "@/assets/identidade-fino-trato.jpg.asset.json";
+import hoursAsset from "@/assets/horario-endereco.jpg.asset.json";
+import servicesAsset from "@/assets/servicos-fino-trato.jpg.asset.json";
+import beardCampaignAsset from "@/assets/barba-campanha.jpg.asset.json";
+import specialHoursAsset from "@/assets/horario-especial.jpg.asset.json";
 
-const work = [
-  { src: facadeAsset.url, alt: "Fachada real da barbearia à noite", label: "Nossa fachada", portrait: false },
-  { src: interiorAsset.url, alt: "Interior real da barbearia com cadeiras e lavatório", label: "Nosso espaço", portrait: false },
-  { src: cropImage, alt: "Corte texturizado com degradê baixo", label: "Textura + low fade", portrait: true },
-  { src: classicImage, alt: "Corte clássico penteado para trás", label: "Clássico + taper", portrait: false },
-  { ...galleryBase[0], portrait: false },
-  { ...galleryBase[1], portrait: false },
-  { src: beardImage, alt: "Acabamento preciso de barba", label: "Barba + contorno", portrait: true },
+const spaces = [
+  { src: facadeAsset.url, alt: "Fachada da Fino Trato Barbearia à noite", label: "Nossa fachada", wide: true },
+  { src: interiorAsset.url, alt: "Interior da Fino Trato com cadeiras e lavatório", label: "Nosso espaço", wide: true },
+  { src: serviceInteriorAsset.url, alt: "Atendimento acontecendo no interior da Fino Trato", label: "Em atendimento", wide: false },
+];
+const results = [
+  { src: fadeAsset.url, alt: "Cliente com corte degradê baixo", label: "Degradê baixo" },
+  { src: fadePortraitAsset.url, alt: "Cliente com degradê e acabamento natural", label: "Degradê + acabamento" },
+  { src: socialCutAsset.url, alt: "Cliente com corte social e barba alinhada", label: "Corte social" },
+  { src: beardCutAsset.url, alt: "Cliente com cabelo e barba alinhados", label: "Corte + barba" },
+];
+const instagramPosts = [
+  { src: identityAsset.url, alt: "Publicação com a identidade visual Fino Trato", label: "Identidade Fino Trato" },
+  { src: hoursAsset.url, alt: "Publicação com horário e endereço da barbearia", label: "Horário e endereço" },
+  { src: servicesAsset.url, alt: "Publicação com os serviços da Fino Trato", label: "Nossos serviços" },
+  { src: beardCampaignAsset.url, alt: "Publicação da Fino Trato sobre cuidados com a barba", label: "Cuidados com a barba" },
+  { src: specialHoursAsset.url, alt: "Publicação de horário especial de fim de ano", label: "Comunicado especial" },
 ];
 export const Route=createFileRoute("/galeria")({head:()=>({meta:[{title:"Galeria de cortes — Fino Trato Barbearia"},{name:"description",content:"Veja cortes, barbas e acabamentos realizados pela equipe Fino Trato Barbearia."},{property:"og:title",content:"Galeria de cortes — Fino Trato Barbearia"},{property:"og:description",content:"Trabalhos recentes e referências para seu próximo visual."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:GalleryPage});
-function GalleryPage(){return <><PageHero eyebrow="Portfólio" title="Nosso espaço. Nosso trabalho." description="Conheça o ambiente real da barbearia e uma seleção de cortes, texturas e barbas."/><section className="py-12 sm:py-20"><div className="mx-auto grid max-w-7xl gap-4 px-5 sm:px-8 md:grid-cols-2 lg:px-10">{work.map((item,index)=><figure key={`${item.label}-${index}`} className={item.portrait ? "group overflow-hidden md:row-span-2" : "group overflow-hidden"}><div className={item.portrait ? "aspect-[4/5]" : "aspect-[4/3]"}><img src={item.src} alt={item.alt} width={1200} height={item.portrait?1500:900} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]"/></div><figcaption className="border-x border-b border-border bg-background px-5 py-4 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">{item.label}</figcaption></figure>)}</div><div className="mt-14 flex justify-center"><Button asChild size="lg"><Link to="/agendamento">Quero renovar o visual <ArrowRight/></Link></Button></div></section></>}
+function GalleryFigure({src,alt,label,wide=false}:{src:string;alt:string;label:string;wide?:boolean}){return <figure className={wide?"group overflow-hidden md:col-span-2":"group overflow-hidden"}><div className={wide?"aspect-[4/3] sm:aspect-[16/9]":"aspect-[4/5]"}><img src={src} alt={alt} width={wide?1400:800} height={wide?788:1000} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.025]"/></div><figcaption className="border-x border-b border-border bg-background px-5 py-4 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">{label}</figcaption></figure>}
+function GalleryPage(){return <><PageHero eyebrow="Portfólio real" title="Nosso espaço. Nosso trabalho." description="Fotos reais da Fino Trato, organizadas entre o ambiente, resultados de clientes e publicações do Instagram."/><section className="py-14 sm:py-20"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><p className="eyebrow">A barbearia</p><h2 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">Por dentro da Fino Trato.</h2><div className="mt-9 grid gap-4 md:grid-cols-2">{spaces.map(item=><GalleryFigure key={item.label} {...item}/>)}</div></div></section><section className="bg-muted py-14 sm:py-20"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><p className="eyebrow">Resultados reais</p><h2 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">Cortes feitos por aqui.</h2><div className="mt-9 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">{results.map(item=><GalleryFigure key={item.label} {...item}/>)}</div></div></section><section className="py-14 sm:py-20"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><p className="eyebrow">@barbeariafinotrato</p><div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"><h2 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">Do nosso Instagram.</h2><a href="https://www.instagram.com/barbeariafinotrato/" target="_blank" rel="noreferrer" className="text-sm font-bold text-primary hover:underline">Ver perfil oficial</a></div><div className="mt-9 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">{instagramPosts.map(item=><GalleryFigure key={item.label} {...item}/>)}</div><div className="mt-14 flex justify-center"><Button asChild size="lg"><Link to="/agendamento">Quero renovar o visual <ArrowRight/></Link></Button></div></div></section></>}

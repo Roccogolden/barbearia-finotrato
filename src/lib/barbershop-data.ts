@@ -6,12 +6,24 @@ import andreImage from "@/assets/barber-andre.jpg";
 
 export const brand = {
   name: "Valor do Corte",
-  phone: "(11) 99999-0000",
+  phone: "(62) 99464-1575",
+  phoneHref: "tel:+5562994641575",
   email: "contato@valordocorte.com.br",
-  address: "Rua Exemplo, 128 — Centro, São Paulo — SP",
-  hours: "Ter–Sex, 9h–20h · Sáb, 9h–18h",
+  address: "R. Esperança, Qd. 27, Lote 03, Sala 02 — Vila Santa Rosa, Senador Canedo — GO, 75250-000",
+  arrivalTime: "15 min",
+  hours: "Seg–Sáb, 8h–20h · Domingo fechado",
   heroImage,
 };
+
+export const openingHours = [
+  { day: "Segunda-feira", hours: "08:00–20:00" },
+  { day: "Terça-feira", hours: "08:00–20:00" },
+  { day: "Quarta-feira", hours: "08:00–20:00" },
+  { day: "Quinta-feira", hours: "08:00–20:00" },
+  { day: "Sexta-feira", hours: "08:00–20:00" },
+  { day: "Sábado", hours: "08:00–20:00" },
+  { day: "Domingo", hours: "Fechado" },
+];
 
 export const services = [
   { name: "Corte assinatura", description: "Consulta de estilo, corte personalizado e finalização.", price: "R$ 65", duration: "45 min" },

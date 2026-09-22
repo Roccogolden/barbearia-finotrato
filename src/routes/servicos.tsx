@@ -1,0 +1,7 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { PageHero } from "@/components/page-hero";
+import { ServiceList } from "@/components/service-list";
+export const Route = createFileRoute("/servicos")({ head: () => ({ meta: [{ title: "Serviços e valores — Valor do Corte" },{ name: "description", content: "Conheça cortes, barba e experiências da Valor do Corte." },{ property: "og:title", content: "Serviços e valores — Valor do Corte" },{ property: "og:description", content: "Escolha o cuidado ideal para seu estilo." },{ property: "og:type", content: "website" },{ name: "twitter:card", content: "summary_large_image" }] }), component: ServicesPage });
+function ServicesPage(){return <><PageHero eyebrow="Menu de serviços" title="Técnica em cada detalhe." description="Valores e durações demonstrativos. Todo atendimento inclui uma conversa inicial para entendermos seu estilo e sua rotina." action={<Button asChild><Link to="/agendamento">Agendar agora <ArrowRight/></Link></Button>}/><section className="py-20"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><ServiceList/><div className="mt-12 grid gap-6 border-t border-border pt-10 md:grid-cols-3">{["Consulta de estilo incluída","Produtos profissionais","Finalização e orientação"].map((text)=><p key={text} className="flex items-center gap-3 text-sm"><Check className="size-5 text-primary"/>{text}</p>)}</div></div></section></>}

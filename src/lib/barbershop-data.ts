@@ -11,6 +11,8 @@ export const brand = {
   instagramHandle: "@barbeariafinotrato",
   instagramHref: "https://www.instagram.com/barbeariafinotrato/",
   address: "R. Esperança, Qd. 27, Lote 03, Sala 02 — Vila Santa Rosa, Senador Canedo — GO, 75250-000",
+  mapsEmbedSrc: "https://www.google.com/maps?q=R.+Esperan%C3%A7a,+Qd.+27,+Lote+03,+Sala+02,+Vila+Santa+Rosa,+Senador+Canedo+-+GO,+75250-000&output=embed",
+  mapsHref: "https://www.google.com/maps/search/?api=1&query=R.+Esperan%C3%A7a%2C+Qd.+27%2C+Lote+03%2C+Sala+02%2C+Vila+Santa+Rosa%2C+Senador+Canedo+-+GO%2C+75250-000",
   arrivalTime: "15 min",
   hours: "Seg–Sáb, 8h–20h · Domingo fechado",
   heroImage: heroAsset.url,

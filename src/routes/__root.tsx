@@ -80,9 +80,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Valor do Corte — Barbearia contemporânea" },
+      { title: "Fino Trato Barbearia — Barbearia contemporânea" },
       { name: "description", content: "Barbearia contemporânea com técnica, cuidado e atendimento personalizado." },
-      { name: "author", content: "Valor do Corte" },
+      { name: "author", content: "Fino Trato Barbearia" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },

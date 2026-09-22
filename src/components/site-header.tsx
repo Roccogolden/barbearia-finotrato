@@ -19,7 +19,7 @@ export function SiteHeader() {
       <div className="mx-auto grid h-18 max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 sm:px-8 lg:px-10">
         <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
           <span className="grid size-9 shrink-0 place-items-center border border-primary text-primary"><Scissors className="size-4" /></span>
-          <span className="truncate font-display text-xl font-semibold uppercase tracking-[0.08em] text-foreground">Valor do Corte</span>
+          <span className="truncate font-display text-xl font-semibold uppercase tracking-[0.08em] text-foreground">Fino Trato Barbearia</span>
         </Link>
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
           {links.map((link) => <Link key={link.to} to={link.to} className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-primary" activeProps={{ className: "text-primary" }}>{link.label}</Link>)}

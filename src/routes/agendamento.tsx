@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { barbers, services } from "@/lib/barbershop-data";
 import { cn } from "@/lib/utils";
 
-export const Route=createFileRoute("/agendamento")({head:()=>({meta:[{title:"Agendar horário — Valor do Corte"},{name:"description",content:"Escolha serviço, profissional, dia e horário para solicitar sua reserva."},{property:"og:title",content:"Agendar horário — Valor do Corte"},{property:"og:description",content:"Reserve seu próximo atendimento em poucos passos."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:BookingPage});
+export const Route=createFileRoute("/agendamento")({head:()=>({meta:[{title:"Agendar horário — Fino Trato Barbearia"},{name:"description",content:"Escolha serviço, profissional, dia e horário para solicitar sua reserva."},{property:"og:title",content:"Agendar horário — Fino Trato Barbearia"},{property:"og:description",content:"Reserve seu próximo atendimento em poucos passos."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:BookingPage});
 const times=["09:00","10:30","12:00","14:00","15:30","17:00","18:30"];
 function BookingPage(){
  const [step,setStep]=useState(1); const [service,setService]=useState(""); const [barber,setBarber]=useState(""); const [date,setDate]=useState(""); const [time,setTime]=useState(""); const [name,setName]=useState(""); const [phone,setPhone]=useState(""); const [sent,setSent]=useState(false);

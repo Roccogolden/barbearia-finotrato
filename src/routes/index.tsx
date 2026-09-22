@@ -7,9 +7,9 @@ import { brand, galleryBase, testimonials } from "@/lib/barbershop-data";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "Valor do Corte — Barbearia contemporânea" },
+    { title: "Fino Trato Barbearia — Barbearia contemporânea" },
     { name: "description", content: "Cortes masculinos e barbas com técnica, personalidade e atendimento cuidadoso." },
-    { property: "og:title", content: "Valor do Corte — Barbearia contemporânea" },
+    { property: "og:title", content: "Fino Trato Barbearia — Barbearia contemporânea" },
     { property: "og:description", content: "Um corte à altura de quem você é." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
@@ -21,13 +21,13 @@ export const Route = createFileRoute("/")({
 function Index() {
   return <>
     <section className="relative min-h-[88svh] overflow-hidden bg-surface-deep pt-18 text-surface-deep-foreground">
-      <img src={brand.heroImage} alt="Barbeiro finalizando um corte na Valor do Corte" width={1920} height={1200} className="absolute inset-0 h-full w-full object-cover object-[62%_center]" />
+      <img src={brand.heroImage} alt="Barbeiro finalizando um corte na Fino Trato Barbearia" width={1920} height={1200} className="absolute inset-0 h-full w-full object-cover object-[62%_center]" />
       <div className="absolute inset-0 bg-gradient-to-r from-surface-deep via-surface-deep/75 to-transparent" />
       <div className="relative mx-auto flex min-h-[calc(88svh-4.5rem)] max-w-7xl items-center px-5 py-16 sm:px-8 lg:px-10">
         <div className="max-w-2xl"><p className="eyebrow">Barbearia contemporânea</p><h1 className="mt-5 font-display text-6xl leading-[0.9] font-semibold sm:text-7xl lg:text-8xl">Seu estilo.<br/><span className="text-primary">Nosso ofício.</span></h1><p className="mt-7 max-w-lg text-base leading-7 text-surface-deep-muted sm:text-lg">Técnica, cuidado e conversa boa. Um corte à altura de quem você é.</p><div className="mt-9 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/agendamento">Agendar horário <ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-surface-deep-muted bg-transparent text-surface-deep-foreground hover:bg-surface-deep-foreground hover:text-surface-deep"><Link to="/servicos">Ver serviços</Link></Button></div></div>
       </div>
     </section>
-    <section className="py-20 sm:py-28"><div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 md:grid-cols-2 md:items-center lg:px-10"><div><p className="eyebrow">Desde 2014</p><h2 className="mt-4 font-display text-4xl leading-tight font-semibold sm:text-5xl">Tradição sem ficar parado no tempo.</h2></div><div><p className="text-base leading-8 text-muted-foreground">A Valor do Corte nasceu da ideia de que uma boa barbearia respeita o clássico, mas entende a vida de hoje. Aqui, cada atendimento começa com escuta e termina com um resultado que funciona para a sua rotina.</p><div className="mt-8 grid grid-cols-3 gap-4 border-t border-border pt-7"><Stat value="12+" label="anos de ofício"/><Stat value="3" label="especialistas"/><Stat value="4,9" label="avaliação média"/></div></div></div></section>
+    <section className="py-20 sm:py-28"><div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 md:grid-cols-2 md:items-center lg:px-10"><div><p className="eyebrow">Desde 2014</p><h2 className="mt-4 font-display text-4xl leading-tight font-semibold sm:text-5xl">Tradição sem ficar parado no tempo.</h2></div><div><p className="text-base leading-8 text-muted-foreground">A Fino Trato Barbearia nasceu da ideia de que uma boa barbearia respeita o clássico, mas entende a vida de hoje. Aqui, cada atendimento começa com escuta e termina com um resultado que funciona para a sua rotina.</p><div className="mt-8 grid grid-cols-3 gap-4 border-t border-border pt-7"><Stat value="12+" label="anos de ofício"/><Stat value="3" label="especialistas"/><Stat value="4,9" label="avaliação média"/></div></div></div></section>
     <section className="bg-muted py-20 sm:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><SectionTitle eyebrow="Serviços" title="O cuidado certo, sem atalhos." link="/servicos"/><div className="mt-10"><ServiceList limit={4}/></div></div></section>
     <section className="py-20 sm:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><SectionTitle eyebrow="Nosso trabalho" title="Detalhes que fazem diferença." link="/galeria"/><div className="mt-10 grid auto-rows-[260px] gap-4 md:grid-cols-3 md:auto-rows-[420px]">{galleryBase.map((item, index) => <figure key={item.label} className={index === 0 ? "overflow-hidden md:col-span-2" : "overflow-hidden"}><img src={item.src} alt={item.alt} width={index === 1 ? 1920 : 1200} height={index === 1 ? 1200 : 900} loading="lazy" className="h-full w-full object-cover transition duration-700 hover:scale-[1.02]"/><figcaption className="sr-only">{item.label}</figcaption></figure>)}</div></div></section>
     <section className="bg-surface-deep py-20 text-surface-deep-foreground sm:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><SectionTitle eyebrow="A equipe" title="Mãos experientes. Olhar atento." link="/equipe" dark/><div className="mt-10"><TeamGrid/></div></div></section>

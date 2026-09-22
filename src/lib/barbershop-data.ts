@@ -1,4 +1,4 @@
-import heroAsset from "@/assets/interior-atendimento.jpg.asset.json";
+import heroAsset from "@/assets/interior-real.webp.asset.json";
 import socialCutAsset from "@/assets/corte-social.jpg.asset.json";
 import fadeAsset from "@/assets/degrade-baixo.jpg.asset.json";
 import beardCutAsset from "@/assets/corte-barba.jpg.asset.json";

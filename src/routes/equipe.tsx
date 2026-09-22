@@ -1,0 +1,6 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { PageHero } from "@/components/page-hero";
+import { TeamGrid } from "@/components/team-grid";
+export const Route=createFileRoute("/equipe")({head:()=>({meta:[{title:"Nossa equipe — Valor do Corte"},{name:"description",content:"Conheça os barbeiros e as especialidades da Valor do Corte."},{property:"og:title",content:"Nossa equipe — Valor do Corte"},{property:"og:description",content:"Profissionais experientes e atentos ao seu estilo."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:TeamPage});
+function TeamPage(){return <><PageHero eyebrow="Profissionais" title="Talento se prova no detalhe." description="Três estilos de trabalho, o mesmo padrão de cuidado. Escolha seu profissional ou deixe que a gente indique o melhor para você."/><section className="py-20"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><TeamGrid/><div className="mt-16 flex justify-center"><Button asChild size="lg"><Link to="/agendamento">Agendar com a equipe</Link></Button></div></div></section></>}

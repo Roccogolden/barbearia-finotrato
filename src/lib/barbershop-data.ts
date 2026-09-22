@@ -48,7 +48,10 @@ export const galleryBase = [
 ];
 
 export const testimonials = [
-  { quote: "O atendimento é pontual, o ambiente é impecável e o corte fica exatamente como eu imagino.", name: "Bruno S.", detail: "Cliente há 3 anos" },
-  { quote: "Não é só cortar o cabelo. Eles entendem seu estilo e explicam como manter o resultado em casa.", name: "Caio M.", detail: "Avaliação demonstrativa" },
-  { quote: "Profissionais cuidadosos e uma experiência tranquila do começo ao fim. Virei cliente na primeira visita.", name: "Felipe R.", detail: "Avaliação demonstrativa" },
+  { quote: "Excelente atendimento, com profissionais qualificados, ambiente climatizado, organizado com higiene. A melhor barbearia da região, com preço justo, vale a pena conferir!!!", name: "Adriano Pereira", detail: "5 estrelas · Google" },
+  { quote: "Lugar muito agradável, excelente profissional. Educado. Já indiquei e super indico sim...", name: "Thiago Reis", detail: "5 estrelas · Google" },
+  { quote: "Excelente atendimento e serviço perfeito.", name: "Reinaldo Rodrigues de Almeida", detail: "5 estrelas · Google" },
+  { quote: "Profissionais de alto nível. Atendimento cordial e acolhedor. Alto astral nas resenhas dos clientes. Altamente recomendável.", name: "Carlos de Brito Lacerda", detail: "5 estrelas · Google" },
+  { quote: "Barbearia excelente, ambiente agradável, climatizado, opções de bebidas enquanto espera sua vez, wi-fi, super indico.", name: "Lucas Nery", detail: "5 estrelas · Google" },
+  { quote: "Ótimo atendimento", name: "pet mania", detail: "5 estrelas · Google" },
 ];

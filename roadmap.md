@@ -5,4 +5,4 @@
 - [x] Reorganizar destaque, galeria e equipe com imagens reais
 - [x] Validar páginas em celular e computador
 
-- [ ] Incorporar informações oficiais do perfil do Instagram
+- [x] Incorporar informações oficiais do perfil do Instagram

@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUp, Quote, Star } from "lucide-react";
+import { ArrowRight, ArrowUp, Quote, Scissors, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/marquee";
 import { Reveal } from "@/components/reveal";
 import { ServiceList } from "@/components/service-list";
-import { TeamGrid } from "@/components/team-grid";
 import { useParallax } from "@/hooks/use-parallax";
 import { useScrolled } from "@/hooks/use-scrolled";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,22 @@ function Index() {
   const heroImageRef = useParallax<HTMLImageElement>(0.12, 50);
   const heroLogoRef = useParallax<HTMLImageElement>(-0.2, 40);
   const showBackToTop = useScrolled(700);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsLoading(false), 1450);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return <>
+    <div className={cn("site-loader", !isLoading && "site-loader--hidden")} aria-hidden={!isLoading}>
+      <div className="loader-mark">
+        <Scissors className="loader-scissors" strokeWidth={1.4} />
+        <span className="loader-line" />
+      </div>
+      <p className="loader-wordmark">FINO TRATO</p>
+      <span className="loader-caption">Preparando seu próximo corte</span>
+    </div>
     <section className="bg-grain relative min-h-[88svh] overflow-hidden bg-surface-deep pt-18 text-surface-deep-foreground">
       <img ref={heroImageRef} src={brand.heroImage} alt="Fachada iluminada da Fino Trato Barbearia" width={1004} height={525} className="absolute inset-0 h-full w-full scale-110 object-cover object-center will-change-transform" />
       <div className="absolute inset-0 bg-gradient-to-r from-surface-deep via-surface-deep/80 to-surface-deep/20" />
@@ -44,7 +59,6 @@ function Index() {
     <section className="py-20 sm:py-28"><div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 md:grid-cols-2 md:items-center lg:px-10"><Reveal><p className="eyebrow">Experiência Fino Trato</p><h2 className="mt-4 font-display text-4xl leading-tight font-semibold sm:text-5xl">Cuidado profissional, do corte ao ambiente.</h2></Reveal><Reveal delay={120}><p className="text-base leading-8 text-muted-foreground">Cortes profissionais em um ambiente climatizado, com atendimento cuidadoso e cerveja gelada para você aproveitar cada momento.</p><div className="mt-8 grid grid-cols-3 gap-3"><Stat value="01" label="cortes profissionais"/><Stat value="02" label="ambiente climatizado"/><Stat value="03" label="cerveja gelada"/></div></Reveal></div></section>
     <section className="bg-muted py-20 sm:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><Reveal><SectionTitle eyebrow="Serviços" title="O cuidado certo, sem atalhos." link="/servicos"/></Reveal><Reveal delay={120} className="mt-10"><ServiceList limit={4}/></Reveal></div></section>
     <section className="py-20 sm:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><Reveal><SectionTitle eyebrow="Nosso trabalho" title="Detalhes que fazem diferença." link="/galeria"/></Reveal><div className="mt-10 grid auto-rows-[260px] gap-4 md:grid-cols-3 md:auto-rows-[420px]">{galleryBase.map((item, index) => <Reveal key={item.label} delay={index * 100} className={cn("group overflow-hidden rounded-2xl border border-border transition-[transform,box-shadow] duration-300 hover:-translate-y-2 hover:shadow-xl", index === 0 && "md:col-span-2")}><figure className="h-full"><img src={item.src} alt={item.alt} width={index === 1 ? 1920 : 1200} height={index === 1 ? 1200 : 900} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"/><figcaption className="sr-only">{item.label}</figcaption></figure></Reveal>)}</div></div></section>
-    <section className="bg-grain bg-surface-deep py-20 text-surface-deep-foreground sm:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><Reveal><SectionTitle eyebrow="A equipe" title="Mãos experientes. Olhar atento." link="/equipe" dark/></Reveal><Reveal delay={120} className="mt-10"><TeamGrid/></Reveal></div></section>
     <section className="py-20 sm:py-28"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><Reveal><div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"><div><p className="eyebrow">Avaliações do Google</p><h2 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">Quem conhece, recomenda.</h2></div><div className="flex items-center gap-3" aria-label="Nota 4,8 de 5, com 62 avaliações"><strong className="font-display text-4xl text-foreground">4,8</strong><span className="flex text-primary" aria-hidden="true">{Array.from({length:5}).map((_,index)=><Star key={index} className="size-4 fill-current"/>)}</span><span className="text-sm text-muted-foreground">62 avaliações</span></div></div></Reveal><div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{testimonials.map((item, index) => <Reveal key={item.name} delay={index * 100}><blockquote className="h-full rounded-2xl border border-border bg-background p-7 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-2 hover:border-primary/40 hover:shadow-xl sm:p-9"><Quote className="size-7 text-primary"/><div className="mt-5 flex text-primary" aria-label={item.detail}>{Array.from({length:5}).map((_,index)=><Star key={index} className="size-4 fill-current" aria-hidden="true"/>)}</div><p className="mt-5 font-display text-2xl leading-snug">“{item.quote}”</p><footer className="mt-7 text-xs font-bold uppercase tracking-[0.12em]">{item.name}<span className="mt-1 block font-normal normal-case tracking-normal text-muted-foreground">{item.detail}</span></footer></blockquote></Reveal>)}</div></div></section>
     <section className="border-y border-border bg-primary py-16"><div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><Reveal className="flex flex-col gap-7 md:flex-row md:items-center md:justify-between"><div><p className="text-xs font-bold uppercase tracking-[0.16em] text-primary-foreground/70">Sua próxima visita</p><h2 className="mt-2 font-display text-4xl font-semibold text-primary-foreground">Reserve seu horário.</h2></div><Button asChild size="lg" className="bg-surface-deep text-surface-deep-foreground hover:bg-surface-deep/90"><Link to="/agendamento">Escolher dia e horário <ArrowRight/></Link></Button></Reveal></div></section>
   </>;

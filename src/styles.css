@@ -185,6 +185,41 @@
   50% { transform: translateY(-10px) rotate(1deg); }
 }
 
+@keyframes loader-scissor-cut {
+  0%, 100% { transform: rotate(-18deg) translateY(0); }
+  45% { transform: rotate(18deg) translateY(-4px); }
+  55% { transform: rotate(18deg) translateY(-4px); }
+}
+
+@keyframes loader-line-draw {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); transform-origin: left; }
+}
+
+@keyframes loader-fade-out {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.7rem;
+  background: var(--color-surface-deep);
+  color: var(--color-surface-deep-foreground);
+  transition: opacity .55s ease, visibility .55s ease;
+}
+
+.site-loader--hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-mark { position: relative; display: grid; place-items: center; width: 7rem; height: 5rem; }
+.loader-scissors { width: 4.6rem; height: 4.6rem; color: var(--color-primary); animation: loader-scissor-cut 1s ease-in-out infinite; }
+.loader-line { position: absolute; bottom: .15rem; width: 5.5rem; height: 1px; background: var(--color-primary); animation: loader-line-draw 1.1s ease-out .15s both; }
+.loader-wordmark { margin: 0; font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; letter-spacing: .24em; }
+.loader-caption { color: var(--color-surface-deep-muted); font-size: .62rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+
 .hero-scanline { animation: scanline 7s ease-in-out infinite; }
 
 .shine-button {
@@ -217,6 +252,20 @@
 
 @media (max-width: 640px) {
   .hero-scanline { animation-duration: 9s; }
+
+  .site-loader { padding: 1.5rem; }
+  .loader-mark { width: 6rem; height: 4.5rem; }
+  .loader-scissors { width: 4rem; height: 4rem; }
+  .loader-line { width: 4.75rem; }
+  .loader-wordmark { font-size: 1.05rem; letter-spacing: .18em; }
+  .loader-caption { font-size: .55rem; letter-spacing: .12em; text-align: center; }
+
+  .shine-button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-loader { transition-duration: .01ms; }
+  .loader-scissors, .loader-line, .hero-scanline { animation: none; }
 }
 
 @utility bg-grain {

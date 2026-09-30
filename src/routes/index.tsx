@@ -36,11 +36,14 @@ function Index() {
   return <>
     <div className={cn("site-loader", !isLoading && "site-loader--hidden")} aria-hidden={!isLoading}>
       <div className="loader-mark">
+        <span className="loader-blade loader-blade--one" aria-hidden="true" />
+        <span className="loader-blade loader-blade--two" aria-hidden="true" />
         <Scissors className="loader-scissors" strokeWidth={1.4} />
         <span className="loader-line" />
+        <span className="loader-spark" aria-hidden="true" />
       </div>
       <p className="loader-wordmark">FINO TRATO</p>
-      <span className="loader-caption">Preparando seu próximo corte</span>
+      <span className="loader-caption">Um corte bem feito começa no detalhe</span>
     </div>
     <section className="bg-grain relative min-h-[88svh] overflow-hidden bg-surface-deep pt-18 text-surface-deep-foreground">
       <img ref={heroImageRef} src={brand.heroImage} alt="Fachada iluminada da Fino Trato Barbearia" width={1004} height={525} className="absolute inset-0 h-full w-full scale-110 object-cover object-center will-change-transform" />

@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUp, Quote, Star } from "lucide-react";
+import { ArrowRight, ArrowUp, Quote, Scissors, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/marquee";
 import { Reveal } from "@/components/reveal";
@@ -26,7 +27,22 @@ function Index() {
   const heroImageRef = useParallax<HTMLImageElement>(0.12, 50);
   const heroLogoRef = useParallax<HTMLImageElement>(-0.2, 40);
   const showBackToTop = useScrolled(700);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsLoading(false), 1450);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return <>
+    <div className={cn("site-loader", !isLoading && "site-loader--hidden")} aria-hidden={!isLoading}>
+      <div className="loader-mark">
+        <Scissors className="loader-scissors" strokeWidth={1.4} />
+        <span className="loader-line" />
+      </div>
+      <p className="loader-wordmark">FINO TRATO</p>
+      <span className="loader-caption">Preparando seu próximo corte</span>
+    </div>
     <section className="bg-grain relative min-h-[88svh] overflow-hidden bg-surface-deep pt-18 text-surface-deep-foreground">
       <img ref={heroImageRef} src={brand.heroImage} alt="Fachada iluminada da Fino Trato Barbearia" width={1004} height={525} className="absolute inset-0 h-full w-full scale-110 object-cover object-center will-change-transform" />
       <div className="absolute inset-0 bg-gradient-to-r from-surface-deep via-surface-deep/80 to-surface-deep/20" />

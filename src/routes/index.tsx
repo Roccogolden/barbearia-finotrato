@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUp, Quote, Scissors, Star } from "lucide-react";
+import { ArrowRight, ArrowUp, Quote, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Marquee } from "@/components/marquee";
 import { Reveal } from "@/components/reveal";
@@ -38,7 +38,7 @@ function Index() {
       <div className="loader-mark">
         <span className="loader-blade loader-blade--one" aria-hidden="true" />
         <span className="loader-blade loader-blade--two" aria-hidden="true" />
-        <Scissors className="loader-scissors" strokeWidth={1.4} />
+        <img src={brand.logoImage} alt="" className="loader-logo" />
         <span className="loader-line" />
         <span className="loader-spark" aria-hidden="true" />
       </div>

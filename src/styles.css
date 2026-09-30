@@ -237,6 +237,20 @@
 
 .hero-scanline { animation: scanline 7s ease-in-out infinite; }
 
+.hero-title {
+  max-width: 10ch;
+  font-size: clamp(3.8rem, 8vw, 7.5rem);
+  line-height: .88;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+  animation: hero-title-arrive .9s .12s both cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes hero-title-arrive {
+  from { opacity: 0; transform: translateY(1rem); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
 .shine-button {
   position: relative;
   isolation: isolate;
@@ -281,6 +295,8 @@
 
 @media (max-width: 640px) {
   .hero-scanline { animation-duration: 9s; }
+  .hero-title { max-width: 8ch; font-size: clamp(3.45rem, 16vw, 5.2rem); line-height: .9; }
+  .bg-grain > img { object-position: 62% center; }
 
   .site-loader { padding: 1.5rem; }
   .loader-mark { width: 6rem; height: 4.5rem; }
@@ -294,7 +310,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .site-loader { transition-duration: .01ms; }
-  .loader-scissors, .loader-line, .hero-scanline { animation: none; }
+  .loader-scissors, .loader-line, .hero-scanline, .hero-title { animation: none; }
 }
 
 @utility bg-grain {

@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUp, Quote, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AnimatedLogo } from "@/components/animated-logo";
 import { Marquee } from "@/components/marquee";
 import { Reveal } from "@/components/reveal";
 import { ServiceList } from "@/components/service-list";
@@ -56,7 +55,6 @@ function Index() {
       <img ref={heroImageRef} src={brand.heroImage} alt="Fachada iluminada da Fino Trato Barbearia" width={1004} height={525} className="absolute inset-0 h-full w-full scale-110 object-cover object-center will-change-transform md:hidden" />
       <video ref={(node) => { heroVideo.current = node; heroVideoRef.current = node; }} src="/videos/hero-fino-trato.mp4" poster={brand.heroImage} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" className="absolute inset-0 hidden h-full w-full scale-110 object-cover object-center will-change-transform md:block" />
       <div className="absolute inset-0 bg-gradient-to-r from-surface-deep via-surface-deep/80 to-surface-deep/20" />
-      <div className="absolute right-[6%] top-1/2 hidden -translate-y-1/2 scale-110 md:block lg:right-[10%] lg:scale-125" aria-hidden="true"><AnimatedLogo /></div>
       <div className="hero-scanline absolute inset-x-0 top-0 h-px bg-primary/70" aria-hidden="true" />
       <div className="absolute inset-y-0 right-[12%] hidden w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent lg:block" aria-hidden="true" />
       <div className="absolute bottom-8 left-5 hidden items-center gap-3 text-[10px] font-bold uppercase tracking-[0.25em] text-surface-deep-muted sm:flex lg:left-10" aria-hidden="true"><span className="size-2 rounded-full bg-primary shadow-[0_0_16px_var(--color-primary)]" />Desde 2018</div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUp, Quote, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,12 +25,18 @@ export const Route = createFileRoute("/")({
 // IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   const heroImageRef = useParallax<HTMLImageElement>(0.12, 50);
+  const heroVideoRef = useParallax<HTMLVideoElement>(0.12, 50);
   const showBackToTop = useScrolled(700);
   const [isLoading, setIsLoading] = useState(true);
+  const heroVideo = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setIsLoading(false), 1450);
     return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) heroVideo.current?.pause();
   }, []);
 
   return <>
@@ -46,7 +52,8 @@ function Index() {
       <span className="loader-caption">Um corte bem feito começa no detalhe</span>
     </div>
     <section className="bg-grain relative min-h-[88svh] overflow-hidden bg-surface-deep pt-18 text-surface-deep-foreground">
-      <img ref={heroImageRef} src={brand.heroImage} alt="Fachada iluminada da Fino Trato Barbearia" width={1004} height={525} className="absolute inset-0 h-full w-full scale-110 object-cover object-center will-change-transform" />
+      <img ref={heroImageRef} src={brand.heroImage} alt="Fachada iluminada da Fino Trato Barbearia" width={1004} height={525} className="absolute inset-0 h-full w-full scale-110 object-cover object-center will-change-transform md:hidden" />
+      <video ref={(node) => { heroVideo.current = node; heroVideoRef.current = node; }} src="/videos/hero-fino-trato.mp4" poster={brand.heroImage} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" className="absolute inset-0 hidden h-full w-full scale-110 object-cover object-center will-change-transform md:block" />
       <div className="absolute inset-0 bg-gradient-to-r from-surface-deep via-surface-deep/80 to-surface-deep/20" />
       <div className="hero-scanline absolute inset-x-0 top-0 h-px bg-primary/70" aria-hidden="true" />
       <div className="absolute inset-y-0 right-[12%] hidden w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent lg:block" aria-hidden="true" />

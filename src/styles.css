@@ -313,6 +313,48 @@
   .shine-button { width: 100%; }
 }
 
+.logo-stage { position: relative; display: grid; place-items: center; width: 17rem; height: 17rem; }
+.logo-ring { position: absolute; inset: 0; border-radius: 9999px; }
+.logo-ring--gold {
+  background: conic-gradient(from 0deg, transparent 0deg, var(--color-primary) 70deg, transparent 140deg, var(--gold-2) 220deg, transparent 300deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+  animation: logo-spin 14s linear infinite;
+}
+.logo-ring--dash { inset: 8%; border: 1px dashed color-mix(in srgb, var(--color-primary) 45%, transparent); animation: logo-spin 36s linear infinite reverse; }
+.logo-glow {
+  position: absolute; inset: -12%; border-radius: 9999px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-primary) 38%, transparent), transparent 62%);
+  filter: blur(10px); animation: logo-glow 4.5s ease-in-out infinite;
+}
+.logo-float { position: relative; z-index: 2; width: 72%; height: 72%; animation: logo-float 6s ease-in-out infinite; }
+.logo-core {
+  width: 100%; height: 100%; border-radius: 9999px; object-fit: cover;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary) 60%, transparent), 0 20px 60px -10px rgb(0 0 0 / 0.6);
+  animation: logo-enter 1.4s cubic-bezier(.2,.8,.2,1) both;
+}
+.logo-sheen { position: absolute; inset: 0; border-radius: 9999px; overflow: hidden; pointer-events: none; }
+.logo-sheen::after {
+  content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 40%;
+  background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--gold-2) 55%, transparent), transparent);
+  transform: translateX(-160%) skewX(-20deg); animation: logo-sheen 5s ease-in-out 1.6s infinite;
+}
+.logo-spark { position: absolute; z-index: 3; width: .4rem; height: .4rem; border-radius: 9999px; background: var(--gold-2); box-shadow: 0 0 12px var(--gold-2); animation: logo-spark 4s ease-in-out infinite; }
+.logo-spark--a { top: 6%; left: 22%; }
+.logo-spark--b { bottom: 14%; right: 10%; animation-delay: -1.3s; }
+.logo-spark--c { top: 42%; right: -2%; animation-delay: -2.6s; }
+
+@keyframes logo-spin { to { transform: rotate(360deg); } }
+@keyframes logo-glow { 0%, 100% { opacity: .55; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.04); } }
+@keyframes logo-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes logo-enter { from { opacity: 0; transform: scale(.55) rotate(-160deg); filter: blur(10px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes logo-sheen { 0% { transform: translateX(-160%) skewX(-20deg); } 45%, 100% { transform: translateX(360%) skewX(-20deg); } }
+@keyframes logo-spark { 0%, 100% { opacity: 0; transform: scale(.4); } 50% { opacity: 1; transform: scale(1.2); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-ring--gold, .logo-ring--dash, .logo-glow, .logo-float, .logo-core, .logo-sheen::after, .logo-spark { animation: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-loader { transition-duration: .01ms; }
   .loader-logo, .loader-line, .hero-scanline, .hero-title { animation: none; }

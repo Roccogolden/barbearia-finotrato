@@ -1,5 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { PageHero } from "@/components/page-hero";
-export const Route=createFileRoute("/equipe")({head:()=>({meta:[{title:"Agendamento — Fino Trato Barbearia"},{name:"description",content:"Agende seu próximo corte na Fino Trato Barbearia."},{property:"og:title",content:"Agendamento — Fino Trato Barbearia"},{property:"og:description",content:"Escolha o melhor horário para cuidar do seu estilo."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:TeamPage});
-function TeamPage(){return <><PageHero eyebrow="Seu próximo horário" title="Seu estilo começa aqui." description="Escolha um horário e venha viver a experiência Fino Trato."/><section className="py-20"><div className="mx-auto flex max-w-7xl justify-center px-5 sm:px-8 lg:px-10"><Button asChild size="lg"><Link to="/agendamento">Agendar horário</Link></Button></div></section></>}
+import { createFileRoute, redirect } from "@tanstack/react-router";
+
+// A página de equipe foi retirada do site; links antigos seguem direto para o agendamento.
+export const Route = createFileRoute("/equipe")({
+  beforeLoad: () => {
+    throw redirect({ to: "/agendamento", statusCode: 301 });
+  },
+});

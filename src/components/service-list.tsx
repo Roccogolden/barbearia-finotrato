@@ -1,29 +1,76 @@
-import { Clock3, Combine, Crown, Droplet, Feather, Flame, Scissors } from "lucide-react";
-import { services } from "@/lib/barbershop-data";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, Eye, Flame, Paintbrush, Scissors, Wind } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
+import { MustacheIcon } from "@/components/icons";
+import { services, type Service } from "@/lib/barbershop-data";
+import { cn } from "@/lib/utils";
 
-const serviceIcons: Record<string, typeof Scissors> = {
-  "Corte assinatura": Scissors,
-  "Barba completa": Flame,
-  "Corte + barba": Combine,
-  "Acabamento": Feather,
-  "Camuflagem": Droplet,
-  "Dia do noivo": Crown,
+const serviceIcons: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
+  corte: Scissors,
+  barba: MustacheIcon,
+  sobrancelha: Eye,
+  progressiva: Wind,
+  barbaterapia: Flame,
+  pigmentacao: Paintbrush,
 };
 
-interface ServiceListProps { limit?: number }
-export function ServiceList({ limit }: ServiceListProps) {
-  const items = typeof limit === "number" ? services.slice(0, limit) : services;
-  return <div className="grid gap-4 md:grid-cols-2">{items.map((service) => {
-    const Icon = serviceIcons[service.name] ?? Scissors;
-    return <article key={service.name} className="group relative rounded-2xl border border-border bg-background p-6 transition-[transform,box-shadow,background-color] duration-300 hover:z-10 hover:-translate-y-2 hover:border-primary/40 hover:bg-muted hover:shadow-xl sm:p-8">
-      <div className="flex items-start justify-between gap-5">
-        <div className="flex items-start gap-4">
-          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground"><Icon className="size-5" /></span>
-          <div><h3 className="font-display text-2xl font-semibold text-foreground">{service.name}</h3><p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">{service.description}</p></div>
-        </div>
-        <span className="shrink-0 font-display text-xl font-semibold text-primary">{service.price}</span>
+export function ServiceIcon({ slug, className }: { slug: string; className?: string }) {
+  const Icon = serviceIcons[slug] ?? Scissors;
+  return <Icon className={className} aria-hidden="true" />;
+}
+
+interface ServiceListProps {
+  /** `compact` mostra os serviços em três colunas, para a página inicial. */
+  variant?: "full" | "compact";
+}
+
+export function ServiceList({ variant = "full" }: ServiceListProps) {
+  const compact = variant === "compact";
+  return (
+    <div className={cn("grid gap-4", compact ? "sm:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2")}>
+      {services.map((service) => (
+        <ServiceCard key={service.slug} service={service} compact={compact} />
+      ))}
+    </div>
+  );
+}
+
+function ServiceCard({ service, compact }: { service: Service; compact: boolean }) {
+  return (
+    <article
+      className={cn(
+        "group relative flex flex-col rounded-2xl border border-border bg-background transition-[translate,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:bg-muted hover:shadow-xl",
+        compact ? "p-6 sm:p-7" : "p-6 sm:p-8",
+      )}
+    >
+      <div className="flex items-start justify-between gap-4">
+        <span className="grid size-12 shrink-0 place-items-center rounded-full bg-primary/10 text-primary ring-1 ring-primary/20 transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+          <ServiceIcon slug={service.slug} className="size-5" />
+        </span>
+        {service.price && (
+          <span className="font-display text-xl font-semibold text-primary">{service.price}</span>
+        )}
       </div>
-      <div className="mt-5 flex items-center gap-2 pl-15 text-xs uppercase tracking-[0.12em] text-muted-foreground"><Clock3 className="size-4 text-primary" />{service.duration}</div>
-    </article>;
-  })}</div>;
+      <h3
+        className={cn(
+          "mt-6 font-display font-semibold text-foreground",
+          compact ? "text-2xl" : "text-3xl",
+        )}
+      >
+        {service.name}
+      </h3>
+      <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">{service.description}</p>
+      <div className="mt-auto pt-6">
+        {/* O link cobre o card inteiro, então qualquer toque leva ao agendamento já com o serviço escolhido. */}
+        <Link
+          to="/agendamento"
+          search={{ servico: service.slug }}
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-ring"
+        >
+          Agendar {service.name.toLowerCase()}
+          <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </Link>
+      </div>
+    </article>
+  );
 }

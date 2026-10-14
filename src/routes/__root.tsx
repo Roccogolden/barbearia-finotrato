@@ -12,28 +12,71 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Button } from "@/components/ui/button";
+import { FloatingActions } from "@/components/floating-actions";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { brand, siteUrl } from "@/lib/barbershop-data";
+
+/** Dados estruturados para o Google mostrar endereço, telefone e horário da barbearia. */
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  name: brand.name,
+  url: siteUrl,
+  image: `${siteUrl}/og-image.jpg`,
+  logo: `${siteUrl}${brand.logoImage}`,
+  telephone: "+55-62-99464-1575",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: `${brand.street}, ${brand.neighborhood}`,
+    addressLocality: brand.city,
+    addressRegion: brand.state,
+    postalCode: brand.postalCode,
+    addressCountry: "BR",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "08:00",
+      closes: "20:00",
+    },
+  ],
+  hasMap: brand.mapsHref,
+  sameAs: [brand.instagramHref],
+};
+
+// Sem JavaScript o GSAP não roda: mostra o conteúdo que começa escondido e tira a tela de abertura.
+const noScriptStyles =
+  "<style>[data-reveal],.logo-ring,.logo-core{opacity:1!important;transform:none!important}.site-loader{display:none!important}</style>";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Página não encontrada</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          A página que você procura não existe ou foi movida.
+    <section className="bg-grain flex min-h-[80vh] items-center bg-surface-deep px-5 pt-18 text-surface-deep-foreground">
+      <div className="mx-auto max-w-xl py-16 text-center">
+        <p className="eyebrow">Erro 404</p>
+        <h1 className="mt-4 font-display text-5xl font-semibold sm:text-6xl">
+          Página não encontrada.
+        </h1>
+        <p className="mt-5 text-base leading-7 text-surface-deep-muted">
+          O endereço pode ter mudado ou não existe mais. Que tal voltar ao início ou já garantir seu
+          horário?
         </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Button asChild size="lg">
+            <Link to="/">Voltar ao início</Link>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="border-surface-deep-muted bg-transparent text-surface-deep-foreground hover:bg-surface-deep-foreground hover:text-surface-deep"
           >
-            Voltar ao início
-          </Link>
+            <Link to="/agendamento">Agendar horário</Link>
+          </Button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -80,11 +123,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Fino Trato Barbearia — Barbearia contemporânea" },
-      { name: "description", content: "Barbearia contemporânea com técnica, cuidado e atendimento personalizado." },
-      { name: "author", content: "Fino Trato Barbearia" },
+      { title: "Fino Trato Barbearia — Barbearia em Senador Canedo, GO" },
+      {
+        name: "description",
+        content:
+          "Barbearia em Senador Canedo — GO: cortes, barba, sobrancelha, progressiva, barbaterapia e pigmentação. Agende pelo WhatsApp.",
+      },
+      { name: "author", content: brand.name },
+      { name: "theme-color", content: "#090807" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: brand.name },
+      { property: "og:locale", content: "pt_BR" },
+      { property: "og:image", content: `${siteUrl}/og-image.jpg` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Fachada da Fino Trato Barbearia à noite" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${siteUrl}/og-image.jpg` },
+      { "script:ld+json": localBusiness },
     ],
     links: [
       {
@@ -93,8 +149,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" },
+      // Gelasio é a alternativa à Georgia (fonte dos títulos) para Android, que não tem Georgia instalada.
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Gelasio:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap",
+      },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -108,6 +169,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="pt-BR">
       <head>
         <HeadContent />
+        <noscript dangerouslySetInnerHTML={{ __html: noScriptStyles }} />
       </head>
       <body>
         {children}
@@ -122,9 +184,18 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <a
+        href="#conteudo"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-60 focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-primary-foreground"
+      >
+        Pular para o conteúdo
+      </a>
       <SiteHeader />
-      <main><Outlet /></main>
+      <main id="conteudo" tabIndex={-1} className="outline-none">
+        <Outlet />
+      </main>
       <SiteFooter />
+      <FloatingActions />
     </QueryClientProvider>
   );
 }

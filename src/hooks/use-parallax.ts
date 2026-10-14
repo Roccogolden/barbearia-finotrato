@@ -1,42 +1,47 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import { FULL_MOTION, gsap, useGSAP } from "@/lib/gsap";
 
 /**
- * Shifts the ref'd element vertically as it crosses the viewport, based on
- * how far its center sits from the viewport center. Positive `speed` moves
- * the element with the scroll (slower than 1:1); negative moves it against.
- * No-ops under prefers-reduced-motion.
+ * Shifts the ref'd element vertically while its container crosses the viewport,
+ * scrubbed to the scroll position by ScrollTrigger. The travel is `speed` times
+ * the distance covered, capped at `maxOffset` px each way; negative `speed`
+ * reverses the direction. No-ops under prefers-reduced-motion.
  */
 export function useParallax<T extends HTMLElement>(speed: number, maxOffset = 60) {
   const ref = useRef<T>(null);
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  useGSAP(
+    () => {
+      const node = ref.current;
+      if (!node) return;
+      // Track the container, not the moving element, so trigger positions stay stable.
+      const trigger = node.parentElement ?? node;
+      const travel = () =>
+        Math.sign(speed) *
+        Math.min(maxOffset, ((window.innerHeight + trigger.offsetHeight) / 2) * Math.abs(speed));
 
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const rect = node.getBoundingClientRect();
-      const viewportCenter = window.innerHeight / 2;
-      const distance = rect.top + rect.height / 2 - viewportCenter;
-      const offset = Math.max(-maxOffset, Math.min(maxOffset, distance * speed));
-      node.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
-    };
-    const onScroll = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, [speed, maxOffset]);
+      const mm = gsap.matchMedia();
+      mm.add(FULL_MOTION, () => {
+        gsap.fromTo(
+          node,
+          { y: () => travel() },
+          {
+            y: () => -travel(),
+            ease: "none",
+            scrollTrigger: {
+              trigger,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.5,
+              invalidateOnRefresh: true,
+            },
+          },
+        );
+      });
+      return () => mm.revert();
+    },
+    { dependencies: [speed, maxOffset], revertOnUpdate: true },
+  );
 
   return ref;
 }

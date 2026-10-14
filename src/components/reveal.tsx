@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { cn } from "@/lib/utils";
+import { useRef, type ReactNode } from "react";
+import { FULL_MOTION, gsap, motion, useGSAP } from "@/lib/gsap";
 
 interface RevealProps {
   children: ReactNode;
@@ -7,41 +7,37 @@ interface RevealProps {
   delay?: number;
 }
 
-/** Fades and lifts children into place the first time they enter the viewport. */
+/**
+ * Fades and lifts children into place the first time they enter the viewport.
+ * The hidden start state lives in CSS ([data-reveal]) so server-rendered markup
+ * never flashes before hydration; reduced-motion users get the content as-is.
+ */
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    if (typeof IntersectionObserver === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(FULL_MOTION, () => {
+        gsap.fromTo(
+          ref.current,
+          { autoAlpha: 0, y: motion.rise },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: motion.slow,
+            delay: delay / 1000,
+            scrollTrigger: { trigger: ref.current, start: "top 88%", once: true },
+          },
+        );
+      });
+      return () => mm.revert();
+    },
+    { scope: ref },
+  );
 
   return (
-    <div
-      ref={ref}
-      className={cn(
-        "transition-[opacity,transform] duration-700 ease-out",
-        visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0",
-        className,
-      )}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
-    >
+    <div ref={ref} data-reveal="" className={className}>
       {children}
     </div>
   );

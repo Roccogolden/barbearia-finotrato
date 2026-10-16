@@ -19,7 +19,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { brand, siteUrl, whatsappGreeting, whatsappLink } from "@/lib/barbershop-data";
 
 // Ao trocar public/og-image.jpg, suba o `v`: WhatsApp e Facebook guardam a prévia pelo endereço da imagem.
-const ogImage = `${siteUrl}/og-image.jpg?v=2`;
+const ogImage = `${siteUrl}/og-image.jpg?v=3`;
 
 /** Dados estruturados para o Google mostrar endereço, telefone e horário da barbearia. */
 const localBusiness = {

@@ -24,7 +24,12 @@ export const brand = {
   /** Abre a rota até a barbearia (no celular, direto no app de mapas). */
   directionsHref:
     "https://www.google.com/maps/dir/?api=1&destination=Fino+Trato+Barbearia%2C+R.+Esperan%C3%A7a%2C+Vila+Santa+Rosa%2C+Senador+Canedo+-+GO",
-  reviewsHref: "https://www.google.com/search?q=fino+trato+barbearia+senador+canedo",
+  /** Busca do Google já com o painel de avaliações aberto (`#lrd` = ficha da barbearia). */
+  reviewsHref:
+    "https://www.google.com/search?q=fino+trato+barbearia+senador+canedo#lrd=0x935ee990145b9db5:0xbcb4310d16c53349,1,,,,",
+  /** Nota e total no Google, conferidos em 16/10/2026. Atualize quando mudarem. */
+  googleRating: "4,8",
+  googleReviewsCount: "62",
   hours: "Seg a sáb, 8h às 20h · Feriados, 8h às 14h",
   /**
    * A foto original da fachada tem só 1360px e fica borrada esticada na tela inteira.
@@ -35,8 +40,6 @@ export const brand = {
   heroBackdrop: "/images/hero-ambiente.webp",
   /** Recorte do emblema oficial, usado no cabeçalho, rodapé e abertura. */
   logoImage: "/images/logo-emblema.webp",
-  googleRating: "4,8",
-  googleReviewsCount: "62",
 };
 
 /** Link do WhatsApp da barbearia, opcionalmente com a mensagem já escrita. */

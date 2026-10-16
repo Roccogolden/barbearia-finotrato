@@ -90,11 +90,6 @@ export function SiteHeader() {
               <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
             </Link>
           ))}
-          <Button asChild size="lg">
-            <a href={whatsappLink(whatsappGreeting)} target="_blank" rel="noopener noreferrer">
-              <WhatsAppIcon /> Chamar no WhatsApp
-            </a>
-          </Button>
         </nav>
 
         <Button

@@ -182,7 +182,10 @@ function Index() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 pt-12 pb-20 sm:px-8 lg:min-h-[calc(92svh-4.5rem)] lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-16 lg:px-10 lg:py-16">
           <div className="max-w-2xl">
             <p data-hero-item className="eyebrow">
-              Barbearia em Senador Canedo — GO · Desde {brand.foundingYear}
+              {/* No celular "Desde 2019" desce para a linha de baixo, sem o ponto solto. */}
+              Barbearia em Senador Canedo — GO<span className="hidden sm:inline"> · </span>
+              <br className="sm:hidden" />
+              Desde {brand.foundingYear}
             </p>
             <h1 className="hero-title mt-5 font-display font-semibold">
               Seu estilo.

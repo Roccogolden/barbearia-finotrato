@@ -64,8 +64,8 @@ export function PhotoCarousel({
     <Carousel setApi={setApi} opts={{ align: "start" }} aria-label={label}>
       <div className="flex items-end justify-between gap-6">
         <div className="min-w-0">{header}</div>
-        {/* Quando todas as fotos cabem na tela, as setas somem (mas guardam o espaço). */}
-        <div className={cn("hidden shrink-0 gap-2 sm:flex", !canPrev && !canNext && "invisible")}>
+        {/* Setas em toda tela (no celular também dá para arrastar). Somem quando tudo cabe, mas guardam o espaço. */}
+        <div className={cn("flex shrink-0 gap-2", !canPrev && !canNext && "invisible")}>
           <ArrowButton
             label="Fotos anteriores"
             disabled={!canPrev}
@@ -120,7 +120,7 @@ function ArrowButton({
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className="grid size-11 place-items-center rounded-full border border-primary/40 text-primary transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-35"
+      className="grid size-10 place-items-center rounded-full sm:size-11 border border-primary/40 text-primary transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-35"
     >
       {children}
     </button>

@@ -26,7 +26,15 @@ interface ServiceListProps {
 export function ServiceList({ variant = "full" }: ServiceListProps) {
   const compact = variant === "compact";
   return (
-    <div className={cn("grid gap-4", compact ? "sm:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2")}>
+    <div
+      className={cn(
+        "gap-4",
+        compact
+          ? // Na home, no celular os cartões viram uma faixa de arrastar (como as avaliações) para não empilhar seis cartões.
+            "-mx-5 flex snap-x snap-mandatory overflow-x-auto px-5 pt-2 pb-4 [scrollbar-width:none] sm:-mx-8 sm:px-8 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pt-0 md:pb-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden"
+          : "grid md:grid-cols-2",
+      )}
+    >
       {services.map((service) => (
         <ServiceCard key={service.slug} service={service} compact={compact} />
       ))}
@@ -39,7 +47,7 @@ function ServiceCard({ service, compact }: { service: Service; compact: boolean 
     <article
       className={cn(
         "group relative flex flex-col rounded-2xl border border-border bg-background transition-[translate,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:bg-muted hover:shadow-xl",
-        compact ? "p-6 sm:p-7" : "p-6 sm:p-8",
+        compact ? "w-[82%] shrink-0 snap-center p-6 sm:w-[60%] sm:p-7 md:w-auto" : "p-6 sm:p-8",
       )}
     >
       <div className="flex items-start justify-between gap-4">

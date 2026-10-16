@@ -1,14 +1,4 @@
 import facadeAsset from "@/assets/fachada-real.webp.asset.json";
-import interiorAsset from "@/assets/interior-real.webp.asset.json";
-import serviceInteriorAsset from "@/assets/interior-atendimento.jpg.asset.json";
-import socialCutAsset from "@/assets/corte-social.jpg.asset.json";
-import fadeAsset from "@/assets/degrade-baixo.jpg.asset.json";
-import fadePortraitAsset from "@/assets/corte-degrade.jpg.asset.json";
-import beardCutAsset from "@/assets/corte-barba.jpg.asset.json";
-import identityAsset from "@/assets/identidade-fino-trato.jpg.asset.json";
-import hoursAsset from "@/assets/horario-endereco.jpg.asset.json";
-import servicesAsset from "@/assets/servicos-fino-trato.jpg.asset.json";
-import beardCampaignAsset from "@/assets/barba-campanha.jpg.asset.json";
 
 export const siteUrl = "https://barbearia-finotrato.vercel.app";
 
@@ -111,6 +101,15 @@ export interface Photo {
   height: number;
 }
 
+/** Frente do salão, com a moto em exposição. Recortada sem a marca d'água do Instagram do rodapé. */
+const entrancePhoto: Photo = {
+  src: "/images/salao-entrada.webp",
+  alt: "Salão da Fino Trato com uma moto em exposição, poltronas e a porta de vidro aberta para a rua",
+  label: "Recepção",
+  width: 900,
+  height: 1410,
+};
+
 export const spacePhotos: Photo[] = [
   {
     src: facadeAsset.url,
@@ -119,32 +118,19 @@ export const spacePhotos: Photo[] = [
     width: 1360,
     height: 907,
   },
+  entrancePhoto,
   {
-    src: serviceInteriorAsset.url,
-    alt: "Barbeiro atendendo um cliente no salão da Fino Trato",
-    label: "Em atendimento",
-    width: 361,
-    height: 640,
-  },
-  {
-    src: interiorAsset.url,
-    alt: "Interior da Fino Trato com parede de tijolos decorada com discos de vinil",
-    label: "Nosso espaço",
-    width: 1360,
-    height: 1020,
+    src: "/images/equipe-salao.webp",
+    alt: "Equipe da Fino Trato reunida no salão, ao lado de clientes sentados nas cadeiras",
+    label: "Nossa equipe",
+    width: 1600,
+    height: 1200,
   },
 ];
 
 /** Seção "Experiência Fino Trato" da home: o salão em destaque e um atendimento por cima. */
 export const experiencePhotos = {
-  space: {
-    // Recortada sem a marca d'água do Instagram que ficava no rodapé da foto.
-    src: "/images/salao-entrada.webp",
-    alt: "Salão da Fino Trato com uma moto em exposição, poltronas e a porta de vidro aberta para a rua",
-    label: "Nosso espaço",
-    width: 900,
-    height: 1410,
-  },
+  space: entrancePhoto,
   service: {
     src: "/images/atendimento-barba.webp",
     alt: "Barbeiro da Fino Trato sorrindo enquanto apara a barba de um cliente",
@@ -154,65 +140,94 @@ export const experiencePhotos = {
   },
 } satisfies Record<string, Photo>;
 
+/** Foto 4:5 de um corte, recortada de dentro da moldura dos posts #EstiloFinoTrato. */
+const cut = (id: string, label: string, alt: string): Photo => ({
+  src: `/images/cortes/corte-${id}.webp`,
+  alt: `${alt}, feito na Fino Trato`,
+  label,
+  width: 830,
+  height: 1038,
+});
+
+/** Cortes recentes do Instagram. Os quatro primeiros aparecem na home; a galeria mostra todos. */
 export const workPhotos: Photo[] = [
-  {
-    src: fadeAsset.url,
-    alt: "Cliente da Fino Trato com corte degradê baixo",
-    label: "Degradê baixo",
-    width: 544,
-    height: 640,
-  },
-  {
-    src: fadePortraitAsset.url,
-    alt: "Cliente da Fino Trato com degradê e acabamento natural",
-    label: "Degradê + acabamento",
-    width: 480,
-    height: 640,
-  },
-  {
-    src: socialCutAsset.url,
-    alt: "Cliente da Fino Trato com corte social e barba alinhada",
-    label: "Corte social",
-    width: 546,
-    height: 640,
-  },
-  {
-    src: beardCutAsset.url,
-    alt: "Cliente da Fino Trato com cabelo penteado para trás e barba cheia alinhada",
-    label: "Corte + barba",
-    width: 481,
-    height: 640,
-  },
+  cut("40", "Degradê com risco", "Cliente com degradê e risco em forma de raio na lateral"),
+  cut("47", "Degradê", "Cliente com degradê nas laterais e cabelo penteado para cima"),
+  cut("44", "Corte + barba", "Cliente com corte curto e barba desenhada"),
+  cut("37", "Corte texturizado", "Cliente com franja texturizada e laterais baixas"),
+  cut("23", "Degradê", "Cliente com degradê nas laterais e topo curto"),
+  cut("27", "Degradê", "Cliente com degradê bem baixo nas laterais"),
+  cut("43", "Degradê + penteado", "Cliente com degradê e topo penteado para o lado"),
+  cut("31", "Corte com volume", "Cliente com volume no topo e laterais aparadas"),
+  cut("26", "Corte social", "Cliente com corte social curto"),
+  cut("38", "Corte + barba", "Cliente com laterais curtas e barba aparada"),
+  cut("46", "Corte + barba", "Cliente sorrindo, com corte curto e barba rente"),
+  cut("30", "Corte social", "Cliente com corte social e barba rente"),
+  cut("35", "Corte social", "Cliente grisalho com corte social penteado"),
 ];
 
+export const featuredWorkPhotos = workPhotos.slice(0, 4);
+
+const inauguration = (n: number, label: string, alt: string): Photo => ({
+  src: `/images/inauguracao/inauguracao-${n}.webp`,
+  alt,
+  label,
+  width: 1280,
+  height: 853,
+});
+
+/** Festa de inauguração da barbearia. */
+export const inaugurationPhotos: Photo[] = [
+  inauguration(
+    1,
+    "Noite de inauguração",
+    "Fachada da Fino Trato iluminada na noite de inauguração, com convidados na calçada",
+  ),
+  inauguration(2, "Música ao vivo", "Músicos tocando e cantando na inauguração da Fino Trato"),
+  inauguration(3, "Casa cheia", "Convidados dentro da barbearia acompanhando a roda de música"),
+  inauguration(4, "Chope", "Casal servindo chope na chopeira durante a inauguração"),
+  inauguration(5, "Cavaquinho", "Cavaquinho sendo tocado na roda de música da inauguração"),
+  inauguration(6, "Brinde", "Convidado sorrindo ao lado da chopeira com um copo de chope"),
+  inauguration(7, "Chope", "Convidada servindo chope na chopeira da barbearia"),
+  inauguration(8, "Chope", "Convidado servindo chope durante a inauguração"),
+];
+
+/** Fotos descontraídas do Instagram (capas de reels 9:16); a legenda já vem escrita na foto. */
 export const instagramPosts: Photo[] = [
   {
-    src: identityAsset.url,
-    alt: "Publicação com o emblema da Fino Trato Barbearia",
-    label: "Identidade Fino Trato",
-    width: 512,
-    height: 640,
+    src: "/images/instagram/dia-a-dia-20.webp",
+    alt: "Cliente na cadeira da Fino Trato, com a legenda “Vou pedir ela em casamento”",
+    label: "Resenha na cadeira",
+    width: 640,
+    height: 1136,
   },
   {
-    src: hoursAsset.url,
-    alt: "Publicação com o horário de funcionamento e o endereço da barbearia",
-    label: "Horário e endereço",
-    width: 512,
-    height: 640,
+    src: "/images/instagram/dia-a-dia-24.webp",
+    alt: "Barbeiro da Fino Trato com a toalha na mão, com a legenda “Tá precisando daquele corte?”",
+    label: "Tá precisando daquele corte?",
+    width: 640,
+    height: 1136,
   },
   {
-    src: servicesAsset.url,
-    alt: "Publicação com a lista de serviços da Fino Trato",
-    label: "Nossos serviços",
-    width: 512,
-    height: 640,
+    src: "/images/instagram/dia-a-dia-28.webp",
+    alt: "Fachada da Fino Trato durante o dia, com a legenda “Já passei na frente mas nunca entrei”",
+    label: "Já passei na frente",
+    width: 640,
+    height: 1136,
   },
   {
-    src: beardCampaignAsset.url,
-    alt: "Publicação da Fino Trato sobre cuidados com a barba",
-    label: "Cuidados com a barba",
-    width: 512,
-    height: 640,
+    src: "/images/instagram/dia-a-dia-32.webp",
+    alt: "Salão da Fino Trato visto por trás do guidão da moto em exposição, com um barbeiro atendendo",
+    label: "Por dentro",
+    width: 640,
+    height: 1136,
+  },
+  {
+    src: "/images/instagram/dia-a-dia-36.webp",
+    alt: "Mensagem “E aí mano, sabe me dizer onde tem uma barbearia top no Canedo?” sobre um corte desfocado",
+    label: "Barbearia top no Canedo",
+    width: 720,
+    height: 1280,
   },
 ];
 

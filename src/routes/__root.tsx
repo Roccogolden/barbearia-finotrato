@@ -18,13 +18,16 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { brand, siteUrl, whatsappGreeting, whatsappLink } from "@/lib/barbershop-data";
 
+// Ao trocar public/og-image.jpg, suba o `v`: WhatsApp e Facebook guardam a prévia pelo endereço da imagem.
+const ogImage = `${siteUrl}/og-image.jpg?v=2`;
+
 /** Dados estruturados para o Google mostrar endereço, telefone e horário da barbearia. */
 const localBusiness = {
   "@context": "https://schema.org",
   "@type": "HairSalon",
   name: brand.name,
   url: siteUrl,
-  image: `${siteUrl}/og-image.jpg`,
+  image: ogImage,
   logo: `${siteUrl}${brand.logoImage}`,
   telephone: "+55-62-99464-1575",
   address: {
@@ -137,12 +140,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: brand.name },
       { property: "og:locale", content: "pt_BR" },
-      { property: "og:image", content: `${siteUrl}/og-image.jpg` },
+      { property: "og:image", content: ogImage },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "Fachada da Fino Trato Barbearia à noite" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: `${siteUrl}/og-image.jpg` },
+      { name: "twitter:image", content: ogImage },
       { "script:ld+json": localBusiness },
     ],
     links: [

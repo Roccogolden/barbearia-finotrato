@@ -26,6 +26,8 @@ package-lock.json
 
 # Local reference material (design system drafts, saved pages) — not part of the site
 PASTA DE ESBOÇOS - DIVERSOS/
+# Fotos e vídeos originais da barbearia; o site usa as cópias otimizadas em public/images
+FINO TRATO - FOTOS E VÍDEOS/
 
 # Editor directories and files
 .vscode/*

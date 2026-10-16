@@ -29,11 +29,11 @@ import { cn } from "@/lib/utils";
 import {
   brand,
   experiencePhotos,
+  featuredWorkPhotos,
   siteUrl,
   testimonials,
   whatsappGreeting,
   whatsappLink,
-  workPhotos,
 } from "@/lib/barbershop-data";
 
 export const Route = createFileRoute("/")({
@@ -352,7 +352,7 @@ function Index() {
               />
             </Reveal>
             <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-              {workPhotos.map((photo, index) => (
+              {featuredWorkPhotos.map((photo, index) => (
                 <Reveal
                   key={photo.src}
                   delay={index * 90}
@@ -519,7 +519,7 @@ function Index() {
 
       {openPhoto !== null && (
         <Lightbox
-          items={workPhotos}
+          items={featuredWorkPhotos}
           index={openPhoto}
           onClose={() => setOpenPhoto(null)}
           onNavigate={setOpenPhoto}

@@ -8,10 +8,18 @@ interface PhotoTileProps {
   className?: string | undefined;
   /** Classes da imagem — use para definir a proporção (ex.: `aspect-[4/5]`). */
   imageClassName?: string | undefined;
+  /** Esconde a legenda sobreposta (ex.: fotos que já trazem texto escrito). */
+  hideLabel?: boolean;
 }
 
 /** Foto clicável com legenda sobreposta; abre o lightbox. */
-export function PhotoTile({ photo, onOpen, className, imageClassName }: PhotoTileProps) {
+export function PhotoTile({
+  photo,
+  onOpen,
+  className,
+  imageClassName,
+  hideLabel = false,
+}: PhotoTileProps) {
   return (
     <figure
       className={cn(
@@ -38,13 +46,20 @@ export function PhotoTile({ photo, onOpen, className, imageClassName }: PhotoTil
           )}
         />
       </button>
-      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-black/85 via-black/35 to-transparent px-4 pt-14 pb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-white sm:text-xs">
-        {photo.label}
+      {hideLabel ? (
         <Expand
-          className="size-4 shrink-0 text-gold-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className="pointer-events-none absolute right-4 bottom-4 size-4 text-gold-2 opacity-0 drop-shadow transition-opacity duration-300 group-hover:opacity-100"
           aria-hidden="true"
         />
-      </figcaption>
+      ) : (
+        <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-black/85 via-black/35 to-transparent px-4 pt-14 pb-4 text-[11px] font-bold uppercase tracking-[0.14em] text-white sm:text-xs">
+          {photo.label}
+          <Expand
+            className="size-4 shrink-0 text-gold-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            aria-hidden="true"
+          />
+        </figcaption>
+      )}
     </figure>
   );
 }

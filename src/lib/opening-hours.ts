@@ -34,30 +34,6 @@ const fixedHolidays = new Set(["04-21", "05-01", "09-07", "10-12", "11-02", "11-
 const closedDates = new Set(["01-01", "12-25"]);
 
 const weekdayNames = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
-const weekdayLongNames = [
-  "domingo",
-  "segunda-feira",
-  "terça-feira",
-  "quarta-feira",
-  "quinta-feira",
-  "sexta-feira",
-  "sábado",
-];
-const weekdayShort = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-const monthShort = [
-  "jan",
-  "fev",
-  "mar",
-  "abr",
-  "mai",
-  "jun",
-  "jul",
-  "ago",
-  "set",
-  "out",
-  "nov",
-  "dez",
-];
 
 export interface ShopDay {
   /** AAAA-MM-DD */
@@ -76,10 +52,6 @@ const pad = (value: number) => String(value).padStart(2, "0");
 function toMinutes(time: string) {
   const [hours = 0, minutes = 0] = time.split(":").map(Number);
   return hours * 60 + minutes;
-}
-
-function fromMinutes(total: number) {
-  return `${pad(Math.floor(total / 60))}:${pad(total % 60)}`;
 }
 
 /** Sexta-feira Santa (MM-DD), dois dias antes da Páscoa (algoritmo de Meeus/Jones/Butcher). */
@@ -139,28 +111,6 @@ export function shopNow(now = new Date()) {
   };
 }
 
-export function upcomingDays(count: number, now = new Date()) {
-  const { today } = shopNow(now);
-  return Array.from({ length: count }, (_, index) => makeShopDay(today.utc + index * DAY_MS));
-}
-
-/** Horários de início a cada `step` minutos; hoje, só a partir de `lead` minutos à frente. */
-export function availableSlots(day: ShopDay, now = new Date(), step = 30, lead = 30) {
-  if (!day.range) return [];
-  const { today, minutes } = shopNow(now);
-  if (day.utc < today.utc) return [];
-  const earliest = day.utc === today.utc ? minutes + lead : 0;
-  const slots: string[] = [];
-  for (
-    let time = toMinutes(day.range.open);
-    time + step <= toMinutes(day.range.close);
-    time += step
-  ) {
-    if (time >= earliest) slots.push(fromMinutes(time));
-  }
-  return slots;
-}
-
 export type OpenStatus =
   { isOpen: true; closesAt: string } | { isOpen: false; opensAt: string | null; opensOn: string };
 
@@ -192,20 +142,4 @@ export function formatHour(time: string) {
 
 export function formatRange(range: TimeRange) {
   return `${formatHour(range.open)} às ${formatHour(range.close)}`;
-}
-
-/** "Hoje", "Amanhã" ou o dia da semana abreviado. */
-export function dayLabel(day: ShopDay, today: ShopDay) {
-  if (day.utc === today.utc) return "Hoje";
-  if (day.utc === today.utc + DAY_MS) return "Amanhã";
-  return weekdayShort[day.weekday] ?? "";
-}
-
-export function monthLabel(day: ShopDay) {
-  return monthShort[day.month - 1] ?? "";
-}
-
-/** "quinta-feira, 15/10" */
-export function formatDayLong(day: ShopDay) {
-  return `${weekdayLongNames[day.weekday] ?? ""}, ${pad(day.day)}/${pad(day.month)}`;
 }

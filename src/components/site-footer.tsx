@@ -10,7 +10,6 @@ const footerLinks = [
   { to: "/servicos", label: "Serviços" },
   { to: "/galeria", label: "Galeria" },
   { to: "/contato", label: "Contato" },
-  { to: "/agendamento", label: "Agendar horário" },
 ] as const;
 
 export function SiteFooter() {

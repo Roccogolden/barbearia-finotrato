@@ -1,11 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ArrowRight, MapPin, Menu, X } from "lucide-react";
+import { ArrowRight, MapPin, Menu, Navigation, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { WhatsAppIcon } from "@/components/icons";
 import { OpenStatus } from "@/components/open-status";
 import { Button } from "@/components/ui/button";
 import { useScrolled } from "@/hooks/use-scrolled";
-import { brand, whatsappLink } from "@/lib/barbershop-data";
+import { brand, whatsappGreeting, whatsappLink } from "@/lib/barbershop-data";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -91,7 +91,9 @@ export function SiteHeader() {
             </Link>
           ))}
           <Button asChild size="lg">
-            <Link to="/agendamento">Agendar horário</Link>
+            <a href={whatsappLink(whatsappGreeting)} target="_blank" rel="noopener noreferrer">
+              <WhatsAppIcon /> Chamar no WhatsApp
+            </a>
           </Button>
         </nav>
 
@@ -133,13 +135,13 @@ export function SiteHeader() {
           </nav>
           <div className="mx-auto mt-6 grid max-w-7xl gap-3 sm:grid-cols-2">
             <Button asChild size="lg">
-              <Link to="/agendamento" onClick={() => setOpen(false)}>
-                Agendar horário
-              </Link>
+              <a href={whatsappLink(whatsappGreeting)} target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon /> Chamar no WhatsApp
+              </a>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon /> WhatsApp
+              <a href={brand.directionsHref} target="_blank" rel="noopener noreferrer">
+                <Navigation /> Como chegar
               </a>
             </Button>
           </div>

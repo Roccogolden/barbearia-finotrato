@@ -13,9 +13,10 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Button } from "@/components/ui/button";
 import { FloatingActions } from "@/components/floating-actions";
+import { WhatsAppIcon } from "@/components/icons";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { brand, siteUrl } from "@/lib/barbershop-data";
+import { brand, siteUrl, whatsappGreeting, whatsappLink } from "@/lib/barbershop-data";
 
 /** Dados estruturados para o Google mostrar endereço, telefone e horário da barbearia. */
 const localBusiness = {
@@ -59,8 +60,8 @@ function NotFoundComponent() {
           Página não encontrada.
         </h1>
         <p className="mt-5 text-base leading-7 text-surface-deep-muted">
-          O endereço pode ter mudado ou não existe mais. Que tal voltar ao início ou já garantir seu
-          horário?
+          O endereço pode ter mudado ou não existe mais. Que tal voltar ao início ou falar com a
+          gente no WhatsApp?
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild size="lg">
@@ -72,7 +73,9 @@ function NotFoundComponent() {
             variant="outline"
             className="border-surface-deep-muted bg-transparent text-surface-deep-foreground hover:bg-surface-deep-foreground hover:text-surface-deep"
           >
-            <Link to="/agendamento">Agendar horário</Link>
+            <a href={whatsappLink(whatsappGreeting)} target="_blank" rel="noopener noreferrer">
+              <WhatsAppIcon /> Chamar no WhatsApp
+            </a>
           </Button>
         </div>
       </div>
@@ -127,7 +130,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Barbearia em Senador Canedo — GO: cortes, barba, sobrancelha, progressiva, barbaterapia e pigmentação. Agende pelo WhatsApp.",
+          "Barbearia em Senador Canedo — GO: cortes, barba, sobrancelha, progressiva, barbaterapia e pigmentação. Sem agendamento: é só chegar.",
       },
       { name: "author", content: brand.name },
       { name: "theme-color", content: "#090807" },

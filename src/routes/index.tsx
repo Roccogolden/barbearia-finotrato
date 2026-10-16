@@ -28,9 +28,10 @@ import { buildPreloaderTimeline } from "@/lib/preloader-timeline";
 import { cn } from "@/lib/utils";
 import {
   brand,
+  experiencePhotos,
   siteUrl,
-  spacePhotos,
   testimonials,
+  whatsappGreeting,
   whatsappLink,
   workPhotos,
 } from "@/lib/barbershop-data";
@@ -42,12 +43,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Cortes masculinos, barba completa, sobrancelha, progressiva, barbaterapia e pigmentação em Senador Canedo — GO. Ambiente climatizado e agendamento pelo WhatsApp.",
+          "Cortes masculinos, barba completa, sobrancelha, progressiva, barbaterapia e pigmentação em Senador Canedo — GO. Ambiente climatizado e atendimento por ordem de chegada.",
       },
       { property: "og:title", content: "Fino Trato Barbearia — Senador Canedo, GO" },
       {
         property: "og:description",
-        content: "Seu estilo. Nosso ofício. Agende seu horário pelo WhatsApp.",
+        content: "Seu estilo. Nosso ofício. Sem agendamento: é só chegar.",
       },
       { property: "og:url", content: `${siteUrl}/` },
     ],
@@ -81,7 +82,7 @@ let introPlayed = false;
 
 function Index() {
   // A foto nítida fica emoldurada (só o zoom da intro); o parallax vai para o fundo desfocado.
-  const heroImageRef = useRef<HTMLImageElement>(null);
+  const heroImageRef = useRef<HTMLDivElement>(null);
   const heroBackdropRef = useParallax<HTMLImageElement>(0.12, 50);
   const interiorImageRef = useParallax<HTMLImageElement>(0.06, 28);
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -196,9 +197,9 @@ function Index() {
             </p>
             <div data-hero-item className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" className="shine-button">
-                <Link to="/agendamento">
-                  Agendar horário <ArrowRight />
-                </Link>
+                <a href={whatsappLink(whatsappGreeting)} target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon /> Chamar no WhatsApp
+                </a>
               </Button>
               <Button
                 asChild
@@ -215,6 +216,7 @@ function Index() {
             >
               <OpenStatus className="text-surface-deep-foreground" />
               <span>Seg a sáb · 8h às 20h</span>
+              <span>Por ordem de chegada</span>
             </div>
             <div
               data-hero-item
@@ -232,15 +234,19 @@ function Index() {
               aria-hidden="true"
             />
             <figure className="relative overflow-hidden rounded-2xl border border-primary/40 bg-surface-deep shadow-2xl shadow-black/60">
-              <img
-                ref={heroImageRef}
-                src={brand.heroImage}
-                alt="Fachada da Fino Trato Barbearia à noite, com o letreiro dourado iluminado"
-                width={980}
-                height={653}
-                fetchPriority="high"
-                className="aspect-[4/3] w-full object-cover"
-              />
+              {/* Foto e selo no mesmo bloco: o zoom da intro move os dois e o selo não sai do letreiro. */}
+              <div ref={heroImageRef} className="relative">
+                <img
+                  src={brand.heroImage}
+                  alt="Fachada da Fino Trato Barbearia à noite, com o letreiro dourado iluminado"
+                  width={980}
+                  height={653}
+                  fetchPriority="high"
+                  className="aspect-[4/3] w-full object-cover"
+                />
+                {/* Em % da foto 4:3: centro e tamanho medidos para cobrir a logo do letreiro em qualquer largura. */}
+                <HeroSeal className="absolute top-[20.4%] left-[33.1%] w-[22%] -translate-x-1/2 -translate-y-1/2" />
+              </div>
               <div
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent"
                 aria-hidden="true"
@@ -250,7 +256,6 @@ function Index() {
                 Vila Santa Rosa · Senador Canedo
               </figcaption>
             </figure>
-            <HeroSeal className="absolute -top-9 -left-3 sm:-top-11 sm:-left-8" />
           </div>
         </div>
       </section>
@@ -269,23 +274,24 @@ function Index() {
           <div className="mx-auto grid max-w-7xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:px-10">
             <Reveal className="relative pb-10 sm:pb-0">
               <figure className="overflow-hidden rounded-2xl border border-border">
+                {/* Foto vertical num quadro 4:3: o recorte fica na faixa da moto, da TV e da porta. */}
                 <img
                   ref={interiorImageRef}
-                  src={spacePhotos[2]?.src}
-                  alt={spacePhotos[2]?.alt}
-                  width={1360}
-                  height={1020}
+                  src={experiencePhotos.space.src}
+                  alt={experiencePhotos.space.alt}
+                  width={experiencePhotos.space.width}
+                  height={experiencePhotos.space.height}
                   loading="lazy"
                   decoding="async"
-                  className="aspect-[4/3] w-full scale-110 object-cover will-change-transform"
+                  className="aspect-[4/3] w-full scale-110 object-cover object-[50%_62%] will-change-transform"
                 />
               </figure>
               <figure className="stat-float absolute -bottom-2 right-3 w-[38%] overflow-hidden rounded-2xl border-4 border-background shadow-2xl sm:-bottom-10 sm:-right-4 lg:-right-10">
                 <img
-                  src={spacePhotos[1]?.src}
-                  alt={spacePhotos[1]?.alt}
-                  width={361}
-                  height={640}
+                  src={experiencePhotos.service.src}
+                  alt={experiencePhotos.service.alt}
+                  width={experiencePhotos.service.width}
+                  height={experiencePhotos.service.height}
                   loading="lazy"
                   decoding="async"
                   className="aspect-[4/5] w-full object-cover"
@@ -491,19 +497,20 @@ function Index() {
             <Reveal className="flex flex-col gap-7 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary-foreground/70">
-                  Sua próxima visita
+                  Sem agendamento
                 </p>
                 <h2 className="mt-2 font-display text-4xl font-semibold text-primary-foreground">
-                  Reserve seu horário.
+                  É só chegar.
                 </h2>
                 <p className="mt-2 max-w-md text-sm leading-6 text-primary-foreground/80">
-                  Escolha o serviço, o dia e a hora — a confirmação chega pelo WhatsApp.
+                  Atendimento por ordem de chegada. Ficou com alguma dúvida? A equipe responde pelo
+                  WhatsApp.
                 </p>
               </div>
               <Button asChild size="lg" variant="ink">
-                <Link to="/agendamento">
-                  Escolher dia e horário <ArrowRight />
-                </Link>
+                <a href={whatsappLink(whatsappGreeting)} target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon /> Chamar no WhatsApp
+                </a>
               </Button>
             </Reveal>
           </div>
@@ -522,10 +529,19 @@ function Index() {
   );
 }
 
-/** Selo com o emblema da marca; o anel de texto gira devagar (parado com movimento reduzido). */
+/**
+ * Selo com o emblema da marca, por cima da logo do letreiro. O tamanho vem de fora (largura);
+ * o anel de texto gira devagar (parado com movimento reduzido).
+ */
 function HeroSeal({ className }: { className?: string }) {
   return (
-    <div className={cn("grid size-24 place-items-center sm:size-32", className)} aria-hidden="true">
+    <div
+      className={cn(
+        "grid aspect-square place-items-center rounded-full shadow-xl shadow-black/50",
+        className,
+      )}
+      aria-hidden="true"
+    >
       <svg
         viewBox="0 0 120 120"
         className="absolute inset-0 size-full text-gold-2 motion-safe:animate-[logo-spin_30s_linear_infinite]"
@@ -543,7 +559,7 @@ function HeroSeal({ className }: { className?: string }) {
         alt=""
         width={96}
         height={96}
-        className="relative size-[58%] rounded-full object-cover ring-1 ring-primary/50"
+        className="relative aspect-square w-[58%] rounded-full object-cover ring-1 ring-primary/50"
       />
     </div>
   );

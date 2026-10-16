@@ -1,8 +1,7 @@
-import { Link } from "@tanstack/react-router";
 import { ArrowRight, Eye, Flame, Paintbrush, Scissors, Wind } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
-import { MustacheIcon } from "@/components/icons";
-import { services, type Service } from "@/lib/barbershop-data";
+import { MustacheIcon, WhatsAppIcon } from "@/components/icons";
+import { services, whatsappLink, type Service } from "@/lib/barbershop-data";
 import { cn } from "@/lib/utils";
 
 const serviceIcons: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
@@ -61,15 +60,20 @@ function ServiceCard({ service, compact }: { service: Service; compact: boolean 
       </h3>
       <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">{service.description}</p>
       <div className="mt-auto pt-6">
-        {/* O link cobre o card inteiro, então qualquer toque leva ao agendamento já com o serviço escolhido. */}
-        <Link
-          to="/agendamento"
-          search={{ servico: service.slug }}
+        {/* O link cobre o card inteiro: qualquer toque abre o WhatsApp já perguntando sobre o serviço. */}
+        <a
+          href={whatsappLink(
+            `Olá! Vi no site o serviço ${service.name} e gostaria de ${service.price ? "mais informações" : "saber o valor"}.`,
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${service.price ? "Tirar dúvidas sobre" : "Consultar o valor de"} ${service.name} no WhatsApp`}
           className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-ring"
         >
-          Agendar {service.name.toLowerCase()}
+          <WhatsAppIcon className="size-4" />
+          {service.price ? "Tirar dúvidas" : "Consultar valor"}
           <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </Link>
+        </a>
       </div>
     </article>
   );

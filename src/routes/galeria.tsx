@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Instagram } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { Instagram } from "lucide-react";
 import { useState } from "react";
 import { AnimatedLogo } from "@/components/animated-logo";
+import { WhatsAppIcon } from "@/components/icons";
 import { Lightbox } from "@/components/lightbox";
 import { PageHero } from "@/components/page-hero";
 import { PhotoTile } from "@/components/photo-tile";
@@ -12,6 +13,7 @@ import {
   instagramPosts,
   siteUrl,
   spacePhotos,
+  whatsappLink,
   workPhotos,
   type Photo,
 } from "@/lib/barbershop-data";
@@ -141,9 +143,15 @@ function GalleryPage() {
           </div>
           <div className="mt-14 flex justify-center">
             <Button asChild size="lg" className="w-full sm:w-auto">
-              <Link to="/agendamento">
-                Quero renovar o visual <ArrowRight />
-              </Link>
+              <a
+                href={whatsappLink(
+                  "Olá! Vi a galeria no site da Fino Trato e quero renovar o visual.",
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WhatsAppIcon /> Quero renovar o visual
+              </a>
             </Button>
           </div>
         </div>

@@ -55,11 +55,14 @@ export function whatsappLink(message?: string) {
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
 
+/** Mensagem padrão dos botões de WhatsApp. A barbearia não trabalha com agendamento. */
+export const whatsappGreeting = "Olá! Vim pelo site da Fino Trato e gostaria de mais informações.";
+
 export interface Service {
   slug: string;
   name: string;
   description: string;
-  /** Preencha com o valor real (ex.: "R$ 45") para exibi-lo no site e no agendamento. */
+  /** Preencha com o valor real (ex.: "R$ 45") para exibi-lo no site. */
   price?: string;
 }
 
@@ -131,6 +134,25 @@ export const spacePhotos: Photo[] = [
     height: 1020,
   },
 ];
+
+/** Seção "Experiência Fino Trato" da home: o salão em destaque e um atendimento por cima. */
+export const experiencePhotos = {
+  space: {
+    // Recortada sem a marca d'água do Instagram que ficava no rodapé da foto.
+    src: "/images/salao-entrada.webp",
+    alt: "Salão da Fino Trato com uma moto em exposição, poltronas e a porta de vidro aberta para a rua",
+    label: "Nosso espaço",
+    width: 900,
+    height: 1410,
+  },
+  service: {
+    src: "/images/atendimento-barba.webp",
+    alt: "Barbeiro da Fino Trato sorrindo enquanto apara a barba de um cliente",
+    label: "Barba completa",
+    width: 900,
+    height: 1199,
+  },
+} satisfies Record<string, Photo>;
 
 export const workPhotos: Photo[] = [
   {

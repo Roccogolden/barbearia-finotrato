@@ -100,7 +100,8 @@ export function SiteFooter() {
       <div className="border-t border-surface-deep-border">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-5 text-xs text-surface-deep-muted sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
           <p>
-            © {new Date().getFullYear()} {brand.name} · {brand.city} — {brand.state}
+            © {new Date().getFullYear()} {brand.name} · Desde {brand.foundingYear} · {brand.city} —{" "}
+            {brand.state}
           </p>
           <a
             href={whatsappLink()}

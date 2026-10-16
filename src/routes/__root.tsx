@@ -48,6 +48,7 @@ const localBusiness = {
   ],
   hasMap: brand.mapsHref,
   sameAs: [brand.instagramHref],
+  foundingDate: brand.foundingDate,
 };
 
 // Sem JavaScript o GSAP não roda: mostra o conteúdo que começa escondido e tira a tela de abertura.

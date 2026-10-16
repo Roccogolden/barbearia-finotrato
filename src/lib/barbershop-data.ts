@@ -30,6 +30,9 @@ export const brand = {
   /** Nota e total no Google, conferidos em 16/10/2026. Atualize quando mudarem. */
   googleRating: "4,8",
   googleReviewsCount: "62",
+  /** Abertura do CNPJ 34.973.108/0001-82 (dado cadastral enviado pelo dono). */
+  foundingDate: "2019-09-24",
+  foundingYear: 2019,
   hours: "Seg a sáb, 8h às 20h · Feriados, 8h às 14h",
   /**
    * A foto original da fachada tem só 1360px e fica borrada esticada na tela inteira.

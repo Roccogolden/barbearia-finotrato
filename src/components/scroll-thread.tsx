@@ -10,6 +10,11 @@ const GUTTER_GAP = 28;
 /** Vertical reach of each side-to-side sweep, kept inside the sections' py-28 padding. */
 const SWEEP_ABOVE = 90;
 const SWEEP_BELOW = 100;
+/** Phones (< 640px) have py-20 between sections, so the sweeps shrink to fit inside it. */
+const PHONE_SWEEP_ABOVE = 58;
+const PHONE_SWEEP_BELOW = 66;
+/** Below 1024px the thread hugs the screen edge, clear of the content's side padding. */
+const COMPACT_WIDTH = 1024;
 /** The thread's tip tracks this line of the viewport while scrolling. */
 const TIP_LINE = "72%";
 
@@ -27,16 +32,23 @@ interface Piece {
 function layoutThread(root: HTMLElement) {
   const width = root.clientWidth;
   const height = root.clientHeight;
-  const margin = Math.max(0, (width - CONTENT_WIDTH) / 2) + CONTENT_PADDING;
-  const left = Math.max(14, margin - GUTTER_GAP);
+  const compact = width < COMPACT_WIDTH;
+  const phone = width < 640;
+  const sweepAbove = phone ? PHONE_SWEEP_ABOVE : SWEEP_ABOVE;
+  const sweepBelow = phone ? PHONE_SWEEP_BELOW : SWEEP_BELOW;
+  // Content side padding: px-5 on phones, sm:px-8 on tablets, lg:px-10 (+ centering) on desktop.
+  const padding = phone ? 20 : compact ? 32 : CONTENT_PADDING;
+  const margin = Math.max(0, (width - CONTENT_WIDTH) / 2) + padding;
+  const left = compact ? Math.max(6, Math.round(margin * 0.35)) : Math.max(14, margin - GUTTER_GAP);
   const right = width - left;
   const tops = Array.from(root.children)
     .filter((el): el is HTMLElement => el.tagName === "SECTION")
     .map((section) => section.offsetTop);
 
-  const origin = width * 0.88; // the hero's `right-[12%]` vertical rule
+  // Desktop: leaves the hero's `right-[12%]` vertical rule (hidden on smaller screens).
+  const origin = compact ? right : width * 0.88;
   let x = right;
-  let y = SWEEP_BELOW;
+  let y = sweepBelow;
   const pieces: Piece[] = [
     { d: `M${origin} 0 C${origin} ${y * 0.6} ${x} ${y * 0.4} ${x} ${y}`, y0: 0, y1: y },
   ];
@@ -44,12 +56,12 @@ function layoutThread(root: HTMLElement) {
   for (let i = 1; i < tops.length; i++) {
     const boundary = tops[i]!;
     const isLast = i === tops.length - 1;
-    const runEnd = boundary - (isLast ? 48 : SWEEP_ABOVE);
+    const runEnd = boundary - (isLast ? 48 : sweepAbove);
     pieces.push({ d: `M${x} ${y} V${runEnd}`, y0: y, y1: runEnd });
     y = runEnd;
     if (isLast) break;
     const next = x === right ? left : right;
-    const sweepEnd = boundary + SWEEP_BELOW;
+    const sweepEnd = boundary + sweepBelow;
     pieces.push({
       d: `M${x} ${y} C${x} ${boundary} ${next} ${boundary} ${next} ${sweepEnd}`,
       y0: y,
@@ -63,9 +75,10 @@ function layoutThread(root: HTMLElement) {
 }
 
 /**
- * Wraps a page's sections with a gold thread that draws itself as the page scrolls
- * (desktop only), each stretch scrubbed to its own scroll range so the tip follows
- * the reader, finishing with a knot that pops just before the last section.
+ * Wraps a page's sections with a gold thread that draws itself as the page scrolls,
+ * each stretch scrubbed to its own scroll range so the tip follows the reader,
+ * finishing with a knot that pops just before the last section. Phones and tablets
+ * get the same thread, hugging the screen edge with shorter sweeps.
  */
 export function ScrollThread({ children }: { children: ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -80,8 +93,10 @@ export function ScrollThread({ children }: { children: ReactNode }) {
       if (!root || !svg || !knot) return;
 
       const mm = gsap.matchMedia();
-      mm.add(`${FULL_MOTION} and (min-width: 1024px)`, () => {
+      mm.add(FULL_MOTION, () => {
         let layout = layoutThread(root);
+        // On touch screens the tip catches up a little faster with the finger.
+        const scrub = window.innerWidth < COMPACT_WIDTH ? 0.4 : 0.6;
         // Each stretch is a soft wide glow under a fine line, drawn together.
         const strands = layout.pieces.map(() => {
           const glow = document.createElementNS(SVG_NS, "path");
@@ -121,7 +136,7 @@ export function ScrollThread({ children }: { children: ReactNode }) {
                 trigger: root,
                 start: () => `top+=${layout.pieces[i]?.y0 ?? 0} ${TIP_LINE}`,
                 end: () => `top+=${layout.pieces[i]?.y1 ?? 0} ${TIP_LINE}`,
-                scrub: 0.6,
+                scrub,
                 invalidateOnRefresh: true,
               },
             },
@@ -159,12 +174,12 @@ export function ScrollThread({ children }: { children: ReactNode }) {
       {/* First child at z-0: above section backgrounds, below the content that follows. */}
       <svg
         ref={svgRef}
-        className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full overflow-visible lg:block"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-visible"
         aria-hidden="true"
       />
       <span
         ref={knotRef}
-        className="pointer-events-none absolute z-0 hidden size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary bg-background opacity-0 shadow-[0_0_16px_var(--color-primary)] after:absolute after:inset-[3px] after:rounded-full after:bg-gold-2 lg:block"
+        className="pointer-events-none absolute z-0 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary bg-background opacity-0 shadow-[0_0_16px_var(--color-primary)] after:absolute after:inset-[3px] after:rounded-full after:bg-gold-2 lg:size-4"
         aria-hidden="true"
       />
       {children}
